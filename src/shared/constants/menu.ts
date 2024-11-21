@@ -10,13 +10,18 @@ export const MenuItems: any[] = [
         url: '/user-management'
     },
     {
-        label: 'Order management',
+        label: 'Product management',
         key: 2,
+        url: '/product-management'
+    },
+    {
+        label: 'Order management',
+        key: 3,
         url: '/order-management'
     },
     {
         label: 'Revenue Management',
-        key: 3,
+        key: 4,
         url: '/revenue-management'
     },
 ]

@@ -1,4 +1,5 @@
 'use client';
+import { ProgressProvider } from "@/components/layouts/HeaderProgress";
 import { httpClient } from "@/libs/api.client";
 import { useGetMe } from "@/services/auth.service";
 import { MenuItems } from "@/shared/constants/menu";
@@ -6,7 +7,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Avatar, Layout, Menu, notification, Popover } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ export default function MainLayout({
 }>) {
     const { data, isLoading } = useGetMe(queryClient);
     const router = useRouter()
+    const pathName = usePathname()
 
     useEffect(() => {
         if (!isLoading && !data) {
@@ -57,7 +59,7 @@ export default function MainLayout({
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        defaultSelectedKeys={['0']}
+                        defaultSelectedKeys={[MenuItems.findIndex(item => item.url === pathName).toString()]}
                         items={MenuItems}
                         onSelect={(params: any) => {
                             router.push(MenuItems[params.key].url)
@@ -85,8 +87,8 @@ export default function MainLayout({
                         <Avatar size="large" icon={<UserOutlined />} />
                     </Popover>
                 </Header>
-                <Content style={{ padding: '0 48px' }}>
-                    <div>{children}</div>
+                <Content style={{ padding: '48px 48px 0', backgroundColor: '#fff' }}>
+                    <ProgressProvider>{children}</ProgressProvider>
                 </Content>
             </Layout>
         </QueryClientProvider>

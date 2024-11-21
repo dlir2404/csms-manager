@@ -12,8 +12,21 @@ class HttpClient {
         this.baseHeader['Authorization'] = 'Bearer ' + token
     }
 
-    async get(endpoint: string, opts?: any){
-        const url = this.baseUrl + endpoint
+
+    createFullUrl(url: string, params: Record<string, any>): string {
+        const queryString = Object.entries(params)
+            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        return `${url}?${queryString}`;
+    }
+
+    async get(endpoint: string, params?: any, opts?: any){
+        let url = this.baseUrl + endpoint
+
+        if (params) {
+            url = this.createFullUrl(url, params);
+        }
 
         const result = await fetch(url, {
             method: 'GET',
@@ -51,7 +64,11 @@ class HttpClient {
     }
 
     async put(endpoint: string, body: any, opts?: any){
-        const url = this.baseUrl + endpoint
+        let url = this.baseUrl + endpoint
+
+        if (opts.id) {
+            url += `/${opts.id}`;
+        }
 
         const result = await fetch(url, {
             method: 'PUT',
