@@ -24,19 +24,14 @@ export const useGetMe = (queryClient: QueryClient) => {
         queryFn: async () => {
             if (!httpClient.accessToken) {
                 const accessToken = localStorage.getItem('act')
-                if (!accessToken) {
-                console.log('return som')
-                }
                 if (!accessToken)   return null;
 
                 httpClient.setToken(accessToken);
             }
 
-            const result = await httpClient.get('/auth/me');
-            console.log('return muon')
+            const result = await httpClient.get(ApiEndpoint.GET_ME);
 
             return result
         },
-        staleTime: 0,
     }, queryClient)
 }

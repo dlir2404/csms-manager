@@ -1,16 +1,13 @@
 'use client';
 import { httpClient } from "@/libs/api.client";
 import { useGetMe } from "@/services/auth.service";
+import { MenuItems } from "@/shared/constants/menu";
 import { UserOutlined } from "@ant-design/icons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Avatar, Layout, Menu, notification, Popover } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
-const items = new Array(3).fill(null).map((_, index) => ({
-    key: String(index + 1),
-    label: `nav ${index + 1}`,
-}));
 
 const queryClient = new QueryClient();
 
@@ -20,6 +17,7 @@ export default function MainLayout({
     children: React.ReactNode;
 }>) {
     const { data, isLoading } = useGetMe(queryClient);
+    const router = useRouter()
 
     useEffect(() => {
         if (!isLoading && !data) {
@@ -55,18 +53,21 @@ export default function MainLayout({
                         alignItems: 'center',
                     }}
                 >
-                    <div className="text-xl text-white font-bold mr-6">BASE</div>
+                    <div className="text-xl text-white font-bold mr-6">CSMS MANAGER</div>
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        defaultSelectedKeys={['2']}
-                        items={items}
+                        defaultSelectedKeys={['0']}
+                        items={MenuItems}
+                        onSelect={(params: any) => {
+                            router.push(MenuItems[params.key].url)
+                        }}
                         style={{ flex: 1, minWidth: 0 }}
                     />
                     <Popover
                         placement="bottomLeft"
                         trigger="click"
-                        title={data.username}
+                        title={data.fullName || data.username}
                         content={<div className="flex flex-col gap-4 pt-4 border-t-gray-400 border-t">
                             <a onClick={() => {}}>View profile</a>
                             <a onClick={() => {}}>Change password</a>
