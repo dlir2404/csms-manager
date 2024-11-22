@@ -32,6 +32,7 @@ export default function EditUserModal({
     }
 
     const handleOK = () => {
+        setIsLoading(true)
         form.submit()
     }
 
@@ -51,7 +52,7 @@ export default function EditUserModal({
             open={isOpen}
             onOk={handleOK}
             onCancel={() => setIsOpen(false)}
-            loading={isLoading}
+            confirmLoading={isLoading}
         >
             <Form
                 name="edit-user"

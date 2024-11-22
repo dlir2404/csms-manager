@@ -29,6 +29,7 @@ export default function CreateUserModal({
     }
 
     const handleOK = () => {
+        setIsLoading(true)
         form.submit()
     }
 
@@ -37,7 +38,7 @@ export default function CreateUserModal({
             open={isOpen}
             onOk={handleOK}
             onCancel={() => setIsOpen(false)}
-            loading={isLoading}
+            confirmLoading={isLoading}
         >
             <Form
                 name="create-user"

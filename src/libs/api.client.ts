@@ -7,7 +7,7 @@ class HttpClient {
         'Authorization': 'Bearer ' + this.accessToken
     }
 
-    setToken(token: string){
+    setToken(token: string) {
         this.accessToken = token;
         this.baseHeader['Authorization'] = 'Bearer ' + token
     }
@@ -21,7 +21,7 @@ class HttpClient {
         return `${url}?${queryString}`;
     }
 
-    async get(endpoint: string, params?: any, opts?: any){
+    async get(endpoint: string, params?: any, opts?: any) {
         let url = this.baseUrl + endpoint
 
         if (params) {
@@ -39,11 +39,11 @@ class HttpClient {
         if (!result.ok) {
             throw await result.json()
         }
-    
+
         return result.json();
     }
 
-    async post(endpoint: string, body: any, opts?: any){
+    async post(endpoint: string, body: any, opts?: any) {
         const url = this.baseUrl + endpoint
 
 
@@ -55,15 +55,15 @@ class HttpClient {
             body: JSON.stringify(body),
             ...opts
         })
-        
+
         if (!result.ok) {
             throw await result.json()
         }
-    
+
         return result.json();
     }
 
-    async put(endpoint: string, body: any, opts?: any){
+    async put(endpoint: string, body: any, opts?: any) {
         let url = this.baseUrl + endpoint
 
         if (opts.id) {
@@ -82,12 +82,16 @@ class HttpClient {
         if (!result.ok) {
             throw await result.json()
         }
-    
+
         return result.json();
     }
 
-    async delete(endpoint: string, opts?: any){
-        const url = this.baseUrl + endpoint
+    async delete(endpoint: string, opts?: any) {
+        let url = this.baseUrl + endpoint
+
+        if (opts.id) {
+            url += `/${opts.id}`;
+        }
 
         const result = await fetch(url, {
             method: 'DELETE',
@@ -100,7 +104,7 @@ class HttpClient {
         if (!result.ok) {
             throw await result.json()
         }
-    
+
         return result.json();
     }
 }
