@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import CreateProductModal from './create-product-modal';
 import EditProductModal from './edit-product-modal';
 import DeleteProductModal from './delete-product-modal';
+import { ICategory } from '@/shared/types/category';
 
 export default function ProductTab() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +59,13 @@ export default function ProductTab() {
             title: 'Categories',
             dataIndex: 'categories',
             key: 'categories',
-            render: (value) => <p>aaa</p>
+            render: (values) => {
+                return <>
+                    {values.map((value: ICategory) => {
+                        return <Tag key={value.id}>{value.name}</Tag>
+                    })}
+                </>
+            }
         },
         {
             title: <SettingOutlined />,
@@ -108,7 +115,6 @@ export default function ProductTab() {
                     total: data?.count,
                 }}
                 onChange={(pagination) => {
-                    console.log(pagination)
                     setCurrentPage(pagination.current || 1);
                 }}
             />

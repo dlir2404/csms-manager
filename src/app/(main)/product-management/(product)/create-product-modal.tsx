@@ -1,10 +1,12 @@
+import uploadToCloudinary from '@/libs/cloudinary'
 import { useGetListCategory } from '@/services/category.service'
 import { useCreateProduct } from '@/services/product.service'
 import { QueryKey } from '@/shared/constants/query.key'
 import { ICategory } from '@/shared/types/category'
 import { UserRole } from '@/shared/types/user'
+import { UploadOutlined } from '@ant-design/icons'
 import { useQueryClient } from '@tanstack/react-query'
-import { Form, Input, InputNumber, Modal, Select, Switch } from 'antd'
+import { Button, Form, Input, InputNumber, message, Modal, Select, Switch, Upload } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React, { useState } from 'react'
 
@@ -30,9 +32,16 @@ export default function CreateProductModal({
     })
 
     const queryClient = useQueryClient();
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
         setIsLoading(true)
-        createUser.mutate(values)
+        const { thumbnail, ...rest } = values
+
+        const result = await uploadToCloudinary(thumbnail.file)
+
+        createUser.mutate({
+            thumbnail: result,
+            ...rest
+        })
     }
 
     const handleOK = () => {
@@ -43,7 +52,10 @@ export default function CreateProductModal({
         <Modal title="Add new product"
             open={isOpen}
             onOk={handleOK}
-            onCancel={() => setIsOpen(false)}
+            onCancel={() => {
+                setIsOpen(false)
+                form.resetFields()
+            }}
             confirmLoading={isLoading}
         >
             <Form
@@ -74,13 +86,28 @@ export default function CreateProductModal({
                 <Form.Item initialValue={true} label="Available" name='available'>
                     <Switch />
                 </Form.Item>
-
                 <Form.Item
-                    label="Thumbnails"
                     name="thumbnail"
-                    rules={[{ required: true, message: 'Thumbnails name is required!' }]}
+                    label="Thumbnail"
+                    rules={[{ required: true, message: 'Please upload a thumbnail!', }]}
                 >
-                    <Input className='text-2xl md:text-sm' />
+                    <Upload
+                        name="thumbnail"
+                        listType="picture"
+                        beforeUpload={(file) => {
+                            return new Promise((resolve, reject) => {
+                                if (file.size > 2) {
+                                    reject('File size excceed')
+                                } else {
+                                    resolve('success')
+                                }
+                            })
+                        }}
+                        maxCount={1}
+                        accept='image/*'
+                    >
+                        <Button icon={<UploadOutlined />}>Click to upload</Button>
+                    </Upload>
                 </Form.Item>
 
                 <Form.Item
