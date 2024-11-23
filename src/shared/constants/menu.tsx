@@ -1,6 +1,6 @@
 import { BookOutlined, FundViewOutlined, PieChartOutlined, ProductOutlined, TeamOutlined } from "@ant-design/icons";
 
-export const MenuItems: any[] = [
+export const MenuItems: any = [
     {
         label: 'Overview',
         key: 0,
@@ -17,7 +17,19 @@ export const MenuItems: any[] = [
         label: 'Product management',
         key: 2,
         url: '/product-management',
-        icon: <ProductOutlined />
+        icon: <ProductOutlined />,
+        children: [
+            {
+                label: 'Product',
+                key: 20,
+                url: '/product-management/product',
+            },
+            {
+                label: 'Category',
+                key: 21,
+                url: '/product-management/category',
+            }
+        ]
     },
     {
         label: 'Order management',
@@ -32,3 +44,14 @@ export const MenuItems: any[] = [
         icon: <FundViewOutlined />
     },
 ]
+
+
+export const getMenuUrlByKeyPath = (keyPath: string[]) => {
+    let items = MenuItems
+    while (keyPath.length > 1) {
+        const key = keyPath.pop() || ''
+
+        items = items.find((item: any) => item.key === +key).children;
+    }
+    return items.find((item: any) => item.key === +keyPath[0]).url
+}

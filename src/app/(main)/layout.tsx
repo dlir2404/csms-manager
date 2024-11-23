@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { httpClient } from "@/libs/api.client";
 import { useGetMe } from "@/services/auth.service";
 import { ProgressProvider } from "@/components/layouts/HeaderProgress";
-import { MenuItems } from "@/shared/constants/menu";
+import { getMenuUrlByKeyPath, MenuItems } from "@/shared/constants/menu";
 
 const { Content, Header } = Layout;
 const Sider = Layout.Sider;
@@ -92,10 +92,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                     >
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={[MenuItems.findIndex((item) => item.url === pathName).toString()]}
+                            defaultSelectedKeys={[MenuItems.findIndex((item: any) => item.url === pathName).toString()]}
                             items={MenuItems}
-                            onSelect={(params: any) => {
-                                router.push(MenuItems[params.key].url);
+                            onSelect={(params) => {
+                                router.push(getMenuUrlByKeyPath(params.keyPath));
                             }}
                             style={{ height: "100%", borderRight: 0 }}
                         />

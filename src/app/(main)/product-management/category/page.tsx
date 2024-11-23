@@ -1,13 +1,7 @@
 'use client'
-import { useGetListProduct } from '@/services/product.service';
-import { IProduct } from '@/shared/types/product';
-import { formatDate } from '@/shared/utils/format.date';
 import { SettingOutlined } from '@ant-design/icons';
 import { Button, Table, TableProps, Tag, Image } from 'antd';
 import React, { useState } from 'react'
-import CreateProductModal from '../(product)/create-product-modal';
-import EditProductModal from '../(product)/edit-product-modal';
-import DeleteProductModal from '../(product)/delete-product-modal';
 import { ICategory } from '@/shared/types/category';
 import { useGetListCategory } from '@/services/category.service';
 import CreateCategoryModal from './create-category-modal';
