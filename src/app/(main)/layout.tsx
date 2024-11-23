@@ -1,36 +1,30 @@
-'use client';
-import { ProgressProvider } from "@/components/layouts/HeaderProgress";
-import { httpClient } from "@/libs/api.client";
-import { useGetMe } from "@/services/auth.service";
-import { MenuItems } from "@/shared/constants/menu";
+'use client'
+import { Layout, Menu, Avatar, Breadcrumb, Popover, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Avatar, Layout, Menu, notification, Popover } from "antd";
-import { Content, Header } from "antd/es/layout/layout";
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { httpClient } from "@/libs/api.client";
+import { useGetMe } from "@/services/auth.service";
+import { ProgressProvider } from "@/components/layouts/HeaderProgress";
+import { MenuItems } from "@/shared/constants/menu";
 
+const { Content, Header } = Layout;
+const Sider = Layout.Sider;
 const queryClient = new QueryClient();
 
-export default function MainLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
     const { data, isLoading } = useGetMe(queryClient);
-    const router = useRouter()
-    const pathName = usePathname()
+    const router = useRouter();
+    const pathName = usePathname();
 
     useEffect(() => {
         if (!isLoading && !data) {
             notification.error({
-                placement: 'top',
-                message: 'Unauthenticated',
+                placement: "top",
+                message: "Unauthenticated",
             });
-            //neu cho nay dung router.push thi se chi soft reload
-            //gay bug khi push sang login xong dang nhap lai
-            //boi vi khi do hook useGetMe co isLoading luon la false trong lan dau tien
-            window.location.href = '/login';
+            window.location.href = "/login";
         }
     }, [data, isLoading]);
 
@@ -44,52 +38,85 @@ export default function MainLayout({
 
     return (
         <QueryClientProvider client={queryClient}>
-            <Layout>
+            <Layout style={{ height: "100vh" }}>
                 <Header
                     style={{
-                        position: 'sticky',
+                        position: "sticky",
                         top: 0,
                         zIndex: 1,
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
                     }}
                 >
                     <div className="text-xl text-white font-bold mr-6">CSMS MANAGER</div>
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={[MenuItems.findIndex(item => item.url === pathName).toString()]}
-                        items={MenuItems}
-                        onSelect={(params: any) => {
-                            router.push(MenuItems[params.key].url)
-                        }}
-                        style={{ flex: 1, minWidth: 0 }}
-                    />
+                    <div className="flex-1"></div>
                     <Popover
                         placement="bottomLeft"
                         trigger="click"
                         title={data.fullName || data.username}
-                        content={<div className="flex flex-col gap-4 pt-4 border-t-gray-400 border-t">
-                            <a onClick={() => {}}>View profile</a>
-                            <a onClick={() => {}}>Change password</a>
-                            <a onClick={() => {
-                                httpClient.setToken('')
-                                localStorage.removeItem('act')
-                                window.location.href = '/login'
-                                notification.success({
-                                    placement: 'top',
-                                    message: 'Logout!'
-                                })
-                            }}>Logout</a>
-                        </div>}
+                        content={
+                            <div className="flex flex-col gap-4 pt-4 border-t-gray-400 border-t">
+                                <a onClick={() => {}}>View profile</a>
+                                <a onClick={() => {}}>Change password</a>
+                                <a
+                                    onClick={() => {
+                                        httpClient.setToken("");
+                                        localStorage.removeItem("act");
+                                        window.location.href = "/login";
+                                        notification.success({
+                                            placement: "top",
+                                            message: "Logout!",
+                                        });
+                                    }}
+                                >
+                                    Logout
+                                </a>
+                            </div>
+                        }
                     >
                         <Avatar size="large" icon={<UserOutlined />} />
                     </Popover>
                 </Header>
-                <Content style={{ padding: '48px 48px 0', backgroundColor: '#fff' }}>
-                    <ProgressProvider>{children}</ProgressProvider>
-                </Content>
+                <Layout>
+                    <Sider
+                        width={200}
+                        style={{
+                            position: "fixed",
+                            height: "100vh",
+                            overflow: "auto",
+                            left: 0,
+                            top: 64, // Adjust for header height
+                            background: "#fff",
+                        }}
+                    >
+                        <Menu
+                            mode="inline"
+                            defaultSelectedKeys={[MenuItems.findIndex((item) => item.url === pathName).toString()]}
+                            items={MenuItems}
+                            onSelect={(params: any) => {
+                                router.push(MenuItems[params.key].url);
+                            }}
+                            style={{ height: "100%", borderRight: 0 }}
+                        />
+                    </Sider>
+                    <Layout style={{ marginLeft: 200, padding: "0 24px 24px" }}>
+                        <Breadcrumb
+                            items={[{ title: "Home" }, { title: "List" }, { title: "App" }]}
+                            style={{ margin: "16px 0" }}
+                        />
+                        <Content
+                            style={{
+                                padding: 24,
+                                margin: 0,
+                                minHeight: 280,
+                                overflow: "auto",
+                            }}
+                        >
+                            <ProgressProvider>{children}</ProgressProvider>
+                        </Content>
+                    </Layout>
+                </Layout>
             </Layout>
         </QueryClientProvider>
     );
