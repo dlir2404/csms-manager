@@ -22,12 +22,12 @@ export const MenuItems: any = [
             {
                 label: 'Product',
                 key: 20,
-                url: '/product-management/product',
+                url: '/product',
             },
             {
                 label: 'Category',
                 key: 21,
-                url: '/product-management/category',
+                url: '/category',
             }
         ]
     },
@@ -40,12 +40,22 @@ export const MenuItems: any = [
             {
                 label: 'Overview',
                 key: 30,
-                url: '/order-management/overview'
+                url: '/overview'
+            },
+            {
+                label: 'Order by users',
+                key: 31,
+                url: '/order-by-user'
+            },
+            {
+                label: 'Order by products',
+                key: 32,
+                url: '/order-by-product'
             },
             {
                 label: 'All orders',
-                key: 30,
-                url: '/order-management/all'
+                key: 39,
+                url: '/all'
             }
         ]
     },
@@ -60,10 +70,14 @@ export const MenuItems: any = [
 
 export const getMenuUrlByKeyPath = (keyPath: string[]) => {
     let items = MenuItems
+    let path = ''
     while (keyPath.length > 1) {
         const key = keyPath.pop() || ''
 
-        items = items.find((item: any) => item.key === +key).children;
+        let item = items.find((item: any) => item.key === +key);
+        path += item.url
+        items = item.children
     }
-    return items.find((item: any) => item.key === +keyPath[0]).url
+
+    return path + items.find((item: any) => item.key === +keyPath[0]).url
 }

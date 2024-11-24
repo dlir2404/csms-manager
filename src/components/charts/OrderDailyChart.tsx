@@ -57,7 +57,7 @@ const OrderDailyChart = () => {
     }
   };
 
-  const onChange = (date: dayjs.Dayjs, dateString: string | string[]) => {
+  const onChange = (date: dayjs.Dayjs) => {
     setDay(date)
   }
 
