@@ -35,7 +35,19 @@ export const MenuItems: any = [
         label: 'Order management',
         key: 3,
         url: '/order-management',
-        icon: <BookOutlined />
+        icon: <BookOutlined />,
+        children: [
+            {
+                label: 'Overview',
+                key: 30,
+                url: '/order-management/overview'
+            },
+            {
+                label: 'All orders',
+                key: 30,
+                url: '/order-management/all'
+            }
+        ]
     },
     {
         label: 'Revenue Management',

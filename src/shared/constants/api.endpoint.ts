@@ -19,4 +19,10 @@ export enum ApiEndpoint {
     CREATE_CATEGORY = '/category',
     EDIT_CATEGORY = '/category',
     DELETE_CATEGORY = '/category',
+
+
+    //order
+    GET_ORDERS = '/order/all',
+    GET_ORDERS_DAILY_STATISTIC = '/order/statistic/day',
+    GET_ORDERS_MONTHLY_STATISTIC = '/order/statistic/month',
 }
