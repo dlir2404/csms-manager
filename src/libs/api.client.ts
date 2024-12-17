@@ -42,14 +42,14 @@ class HttpClient {
         },
         ...opts,
       });
-  
+
       if (!result.ok) {
         throw await result.json();
       }
-  
+
       return result.json();
     } catch (e) {
-      console.log('loiii roiiii', e)
+      console.log('loiii roiiii', e);
     }
   }
 

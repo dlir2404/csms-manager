@@ -2,24 +2,21 @@
 import React from 'react';
 import Highcharts, { Options } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import BaseLoading from '../layouts/BaseLoading';
+import BaseEmpty from '../layouts/BaseEmpty';
 
-const OrderStatusPie = () => {
-  // const { data, isLoading } = useGetOrderCreatedByStatistic({
-  // });
+const OrderStatusPie = ({
+  statuses
+}: {
+  statuses: any[]
+}) => {
+  if (!statuses) {
+    return <BaseLoading />
+  }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-full text-center align-middle">Loading...</div>
-  //   );
-  // }
-
-  // if (!isLoading && (!data || !data?.length)) {
-  //   return (
-  //     <div className="w-full h-full flex items-center justify-center">
-  //       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-  //     </div>
-  //   );
-  // }
+  const total = statuses?.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.count;
+  }, 0)
 
   const options: Options | any = {
     chart: {
@@ -62,30 +59,12 @@ const OrderStatusPie = () => {
       {
         type: 'pie',
         name: 'Percentage',
-        data: [
-          {
-            name: 'Water',
-            y: 55.02,
-          },
-          {
-            name: 'Fat',
-            // sliced: true,
-            // selected: true,
-            y: 26.71,
-          },
-          {
-            name: 'Carbohydrates',
-            y: 1.09,
-          },
-          {
-            name: 'Protein',
-            y: 15.5,
-          },
-          {
-            name: 'Ash',
-            y: 1.68,
-          },
-        ],
+        data: statuses?.map((status: any) => {
+          return {
+            name: status.status,
+            y: +((status.count) * 100 / total).toFixed(2)
+          }
+        }),
       },
     ],
   };
@@ -96,10 +75,15 @@ const OrderStatusPie = () => {
         <div className="font-semibold text-lg">Orders status</div>
       </div>
       {typeof window !== 'undefined' && (
-        <HighchartsReact highcharts={Highcharts} options={options} />
+        <>
+          {total == 0
+            ? <BaseEmpty />
+            : <HighchartsReact highcharts={Highcharts} options={options} />
+          }
+        </>
       )}
     </div>
   );
 };
 
-export default OrderStatusPie;
+export default OrderStatusPie

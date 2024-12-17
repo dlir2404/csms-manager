@@ -12,30 +12,63 @@ import React from 'react';
 
 export default function Overview() {
   const { data } = useGetOrderOverview();
+
+  // if (data) {
+  //   data.statuses = [
+  //     {
+  //       status: 'created',
+  //       count: 3
+  //     },
+  //     {
+  //       status: 'processing',
+  //       count: 4
+  //     },
+  //     {
+  //       status: 'completed',
+  //       count: 5
+  //     },
+  //   ]
+  // }
+
   return (
     <div>
       <Row gutter={16} className="mb-4">
         <Col span={6}>
-          <BaseBox showCompare title="Total order" number={data?.today?.totalOrders || 0} compareTo={data?.yesterday?.totalOrders || 0}></BaseBox>
+          <BaseBox
+            showCompare
+            title="Total order"
+            number={data?.today?.totalOrders || 0}
+            compareTo={data?.yesterday?.totalOrders || 0}
+          ></BaseBox>
         </Col>
         <Col span={6}>
           <BaseBox
-          showCompare
+            showCompare
             title="Total order value"
             number={data?.today?.totalOrderValue || 0}
             compareTo={data?.yesterday?.totalOrderValue || 0}
           ></BaseBox>
         </Col>
         <Col span={6}>
-          <BaseBox showCompare title="Average order value" number={data?.today?.avgOrderValue || 0} compareTo={data?.yesterday?.avgOrderValue || 0}></BaseBox>
+          <BaseBox
+            showCompare
+            title="Average order value"
+            number={data?.today?.avgOrderValue || 0}
+            compareTo={data?.yesterday?.avgOrderValue || 0}
+          ></BaseBox>
         </Col>
         <Col span={6}>
-          <BaseBox showCompare title="Average item per order" number={data?.today?.totalItems || 0} compareTo={data?.yesterday?.totalItems || 0}></BaseBox>
+          <BaseBox
+            showCompare
+            title="Average item per order"
+            number={data?.today?.totalItems || 0}
+            compareTo={data?.yesterday?.totalItems || 0}
+          ></BaseBox>
         </Col>
       </Row>
       <Row gutter={16} className="mb-4">
         <Col span={8}>
-          <OrderStatusPie />
+          <OrderStatusPie statuses={data?.statuses} />
         </Col>
         <Col span={16}>
           <OrderCreatedByColumn />
