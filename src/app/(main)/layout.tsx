@@ -36,7 +36,12 @@ export default function MainLayout({
   if (isLoading || !data) {
     return (
       <div className="h-[100vh] flex items-center justify-center">
-        <Image src="/images/loading.gif" alt="Loading..." />
+        <Image
+          width={80}
+          height={80}
+          src="/images/loading.gif"
+          alt="Loading..."
+        />
       </div>
     );
   }

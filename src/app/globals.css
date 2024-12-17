@@ -25,3 +25,9 @@ body {
     text-wrap: balance;
   }
 }
+
+.highcharts-root {
+  .highcharts-credits {
+    display: none;
+  }
+}
