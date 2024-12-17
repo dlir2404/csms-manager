@@ -3,6 +3,15 @@ import { ApiEndpoint } from '@/shared/constants/api.endpoint';
 import { QueryKey } from '@/shared/constants/query.key';
 import { useQuery } from '@tanstack/react-query';
 
+export const useGetOrderOverview = () => {
+  return useQuery({
+    queryKey: [QueryKey.GET_ORDERS_OVERVIEW],
+    queryFn: async () => {
+      return await httpClient.get(ApiEndpoint.GET_ORDERS_OVERVIEW);
+    },
+  });
+};
+
 export const useGetListOrder = ({
   page,
   pageSize,

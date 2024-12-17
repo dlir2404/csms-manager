@@ -24,25 +24,33 @@ class HttpClient {
   }
 
   async get(endpoint: string, params?: any, opts?: any) {
+    if (endpoint[0] != '/') {
+      endpoint = '/' + endpoint;
+    }
+
     let url = this.baseUrl + endpoint;
 
     if (params) {
       url = this.createFullUrl(url, params);
     }
 
-    const result = await fetch(url, {
-      method: 'GET',
-      headers: {
-        ...this.baseHeader,
-      },
-      ...opts,
-    });
-
-    if (!result.ok) {
-      throw await result.json();
+    try {
+      const result = await fetch(url, {
+        method: 'GET',
+        headers: {
+          ...this.baseHeader,
+        },
+        ...opts,
+      });
+  
+      if (!result.ok) {
+        throw await result.json();
+      }
+  
+      return result.json();
+    } catch (e) {
+      console.log('loiii roiiii', e)
     }
-
-    return result.json();
   }
 
   async post(endpoint: string, body: any, opts?: any) {
