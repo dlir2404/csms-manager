@@ -7,28 +7,109 @@ import OrderProductPie from '@/components/charts/OrderProductPie';
 import OrderStatusPie from '@/components/charts/OrderStatusPie';
 import BaseBox from '@/components/statistics/BaseBox';
 import { useGetOrderOverview } from '@/services/order.service';
+import { IOrderOverview } from '@/shared/types/order';
 import { Col, Row } from 'antd';
 import React from 'react';
 
-export default function Overview() {
-  const { data } = useGetOrderOverview();
+const fakeData: IOrderOverview = {
+  today: {
+    totalOrders: 10,
+    totalOrderValue: 200000,
+    avgOrderValue: 50000,
+    totalItems: 5
+  },
+  yesterday: {
+    totalOrders: 2,
+    totalOrderValue: 100000,
+    avgOrderValue: 20000,
+    totalItems: 2
+  },
+  statuses: [
+    {
+      status: 'created',
+      count: 3
+    },
+    {
+      status: 'processing',
+      count: 4
+    },
+    {
+      status: 'completed',
+      count: 5
+    },
+  ],
+  createdBy: [
+    {
+      name: "Order taker 1",
+      order: 1,
+      total_value: 200000,
+    },
+    {
+      name: "Order taker 2",
+      order: 4,
+      total_value: 500000,
+    },
+    {
+      name: "Order taker 3",
+      order: 2,
+      total_value: 400000,
+    },
+    {
+      name: "Order taker 4",
+      order: 5,
+      total_value: 800000,
+    },
+  ],
+  processBy: [
+    {
+      name: "Order taker 1",
+      order: 1,
+      total_value: 200000,
+    },
+    {
+      name: "Order taker 2",
+      order: 4,
+      total_value: 500000,
+    },
+    {
+      name: "Order taker 3",
+      order: 2,
+      total_value: 400000,
+    },
+    {
+      name: "Order taker 4",
+      order: 5,
+      total_value: 800000,
+    },
+  ],
+  productRatio: [
+    {
+      name: "Product 1",
+      order: 10
+    },
+    {
+      name: "Product 2",
+      order: 12
+    },
+    {
+      name: "Product 3",
+      order: 15
+    },
+    {
+      name: "Product 4",
+      order: 7
+    },
+    {
+      name: "Product 5",
+      order: 1
+    },
+  ]
+}
 
-  // if (data) {
-  //   data.statuses = [
-  //     {
-  //       status: 'created',
-  //       count: 3
-  //     },
-  //     {
-  //       status: 'processing',
-  //       count: 4
-  //     },
-  //     {
-  //       status: 'completed',
-  //       count: 5
-  //     },
-  //   ]
-  // }
+export default function Overview() {
+  // const { data } = useGetOrderOverview();
+
+  const data = fakeData
 
   return (
     <div>
@@ -71,15 +152,15 @@ export default function Overview() {
           <OrderStatusPie statuses={data?.statuses} />
         </Col>
         <Col span={16}>
-          <OrderCreatedByColumn />
+          <OrderCreatedByColumn data={data?.createdBy} />
         </Col>
       </Row>
       <Row gutter={16} className="mb-4">
         <Col span={16}>
-          <OrderProcessedByColumn />
+          <OrderProcessedByColumn data={data?.processBy} />
         </Col>
         <Col span={8}>
-          <OrderProductPie />
+          <OrderProductPie data={data?.productRatio} />
         </Col>
       </Row>
       <Row gutter={16} className="mb-4">

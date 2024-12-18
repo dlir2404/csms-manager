@@ -4,11 +4,12 @@ import Highcharts, { Options } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import BaseLoading from '../layouts/BaseLoading';
 import BaseEmpty from '../layouts/BaseEmpty';
+import { IOrderStatusOverview } from '@/shared/types/order';
 
 const OrderStatusPie = ({
   statuses
 }: {
-  statuses: any[]
+  statuses: IOrderStatusOverview[] | undefined
 }) => {
   if (!statuses) {
     return <BaseLoading />
@@ -59,7 +60,7 @@ const OrderStatusPie = ({
       {
         type: 'pie',
         name: 'Percentage',
-        data: statuses?.map((status: any) => {
+        data: statuses?.map((status) => {
           return {
             name: status.status,
             y: +((status.count) * 100 / total).toFixed(2)

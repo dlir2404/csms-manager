@@ -2,8 +2,19 @@
 import React from 'react';
 import Highcharts, { Options } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { IOrderActionBy } from '@/shared/types/order';
+import BaseEmpty from '../layouts/BaseEmpty';
 
-const OrderProcessedByColumn = () => {
+const OrderProcessedByColumn = ({
+  data
+}: {
+  data: IOrderActionBy[] | undefined
+}) => {
+
+  if (!data) {
+    return <BaseEmpty />
+  }
+
   const options: Options = {
     chart: {
       type: 'column',
@@ -15,7 +26,7 @@ const OrderProcessedByColumn = () => {
       text: '',
     },
     xAxis: {
-      categories: ['a', 'b', 'c'],
+      categories: data?.map(e => e.name),
       crosshair: true,
     },
     yAxis: [
@@ -47,14 +58,14 @@ const OrderProcessedByColumn = () => {
       {
         type: 'column',
         name: 'Orders',
-        data: [3, 2, 5],
+        data: data?.map(e => e.order),
         color: '#4f46e5',
         yAxis: 0, // Bind to the primary yAxis
       },
       {
         type: 'column',
         name: 'Total Values',
-        data: [100, 200, 800],
+        data: data?.map(e => e.total_value),
         color: '#fe6a35',
         yAxis: 1, // Bind to the secondary yAxis
       },

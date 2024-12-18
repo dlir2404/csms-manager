@@ -2,24 +2,21 @@
 import React from 'react';
 import Highcharts, { Options } from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { IProductRatioOverview } from '@/shared/types/order';
+import BaseEmpty from '../layouts/BaseEmpty';
 
-const OrderProductPie = () => {
-  // const { data, isLoading } = useGetOrderCreatedByStatistic({
-  // });
+const OrderProductPie = ({
+  data
+}: {
+  data: IProductRatioOverview[] | undefined
+}) => {
+  if (!data) {
+    return <BaseEmpty />
+  }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-full text-center align-middle">Loading...</div>
-  //   );
-  // }
-
-  // if (!isLoading && (!data || !data?.length)) {
-  //   return (
-  //     <div className="w-full h-full flex items-center justify-center">
-  //       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-  //     </div>
-  //   );
-  // }
+  const total = data?.reduce((sum, curr) => {
+    return sum + curr.order
+  }, 0) || 0
 
   const options: Options | any = {
     chart: {
@@ -62,30 +59,12 @@ const OrderProductPie = () => {
       {
         type: 'pie',
         name: 'Percentage',
-        data: [
-          {
-            name: 'Water',
-            y: 55.02,
-          },
-          {
-            name: 'Fat',
-            // sliced: true,
-            // selected: true,
-            y: 26.71,
-          },
-          {
-            name: 'Carbohydrates',
-            y: 1.09,
-          },
-          {
-            name: 'Protein',
-            y: 15.5,
-          },
-          {
-            name: 'Ash',
-            y: 1.68,
-          },
-        ],
+        data: data?.map(e => {
+          return {
+            name: e.name,
+            y: +(e.order * 100 / total).toFixed(2)
+          }
+        }),
       },
     ],
   };
