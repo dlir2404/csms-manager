@@ -6,6 +6,7 @@ import OrderProcessedByColumn from '@/components/charts/OrderProcessedByColumn'
 import OrderProductPie from '@/components/charts/OrderProductPie'
 import OrderStatusPie from '@/components/charts/OrderStatusPie'
 import BaseBox from '@/components/statistics/BaseBox'
+import { useGetOrderOverview } from '@/services/order.service'
 import { IOrderOverview } from '@/shared/types/order'
 import { Col, Row } from 'antd'
 import React from 'react'
@@ -39,76 +40,76 @@ const fakeData: IOrderOverview = {
   ],
   createdBy: [
     {
-      name: 'Order taker 1',
-      order: 1,
-      total_value: 200000,
+      username: 'Order taker 1',
+      count: 1,
+      totalValue: 200000,
     },
     {
-      name: 'Order taker 2',
-      order: 4,
-      total_value: 500000,
+      username: 'Order taker 2',
+      count: 4,
+      totalValue: 500000,
     },
     {
-      name: 'Order taker 3',
-      order: 2,
-      total_value: 400000,
+      username: 'Order taker 3',
+      count: 2,
+      totalValue: 400000,
     },
     {
-      name: 'Order taker 4',
-      order: 5,
-      total_value: 800000,
+      username: 'Order taker 4',
+      count: 5,
+      totalValue: 800000,
     },
   ],
   processBy: [
     {
-      name: 'Order taker 1',
-      order: 1,
-      total_value: 200000,
+      username: 'Order taker 1',
+      count: 1,
+      totalValue: 200000,
     },
     {
-      name: 'Order taker 2',
-      order: 4,
-      total_value: 500000,
+      username: 'Order taker 2',
+      count: 4,
+      totalValue: 500000,
     },
     {
-      name: 'Order taker 3',
-      order: 2,
-      total_value: 400000,
+      username: 'Order taker 3',
+      count: 2,
+      totalValue: 400000,
     },
     {
-      name: 'Order taker 4',
-      order: 5,
-      total_value: 800000,
+      username: 'Order taker 4',
+      count: 5,
+      totalValue: 800000,
     },
   ],
   productRatio: [
     {
       name: 'Product 1',
-      order: 10,
+      count: 10,
     },
     {
       name: 'Product 2',
-      order: 12,
+      count: 12,
     },
     {
       name: 'Product 3',
-      order: 15,
+      count: 15,
     },
     {
       name: 'Product 4',
-      order: 7,
+      count: 7,
     },
     {
       name: 'Product 5',
-      order: 1,
+      count: 1,
     },
   ],
 }
 
 export default function Overview() {
-  // const { data } = useGetOrderOverview();
+  const { data } = useGetOrderOverview();
 
-  const data = fakeData
+  // const data = fakeData
 
   return (
     <div>
@@ -125,6 +126,7 @@ export default function Overview() {
           <BaseBox
             showCompare
             title="Total order value"
+            showCurrency
             number={data?.today?.totalOrderValue || 0}
             compareTo={data?.yesterday?.totalOrderValue || 0}
           ></BaseBox>
@@ -133,6 +135,7 @@ export default function Overview() {
           <BaseBox
             showCompare
             title="Average order value"
+            showCurrency
             number={data?.today?.avgOrderValue || 0}
             compareTo={data?.yesterday?.avgOrderValue || 0}
           ></BaseBox>

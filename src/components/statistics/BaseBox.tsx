@@ -1,3 +1,4 @@
+import { formatCurrency } from '@/shared/utils/formatCurrency'
 import { ArrowDownOutlined, ArrowUpOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import React from 'react'
@@ -7,10 +8,12 @@ export default function BaseBox({
   number,
   compareTo,
   showCompare,
+  showCurrency
 }: {
   title: string
   number: number
   showCompare: boolean
+  showCurrency?: boolean
   compareTo?: number
 }) {
   const compare = () => {
@@ -54,7 +57,7 @@ export default function BaseBox({
     <div className=" py-4 px-6 bg-white rounded-md flex-1 shadow-md">
       <div className="text-xl mb-4 border-b">{title}</div>
       <div className="flex items-center justify-between">
-        <div className="font-bold text-2xl">{number}</div>
+        <div className="font-bold text-2xl">{showCurrency ? formatCurrency(number) + " VND" : number}</div>
         {showCompare && compare()}
       </div>
     </div>

@@ -21,7 +21,7 @@ const OrderCreatedByColumn = ({ data }: { data: IOrderActionBy[] | undefined }) 
       text: '',
     },
     xAxis: {
-      categories: data?.map((e) => e.name),
+      categories: data?.map((e) => e.fullName ? e.fullName : e.username),
       crosshair: true,
     },
     yAxis: [
@@ -53,14 +53,14 @@ const OrderCreatedByColumn = ({ data }: { data: IOrderActionBy[] | undefined }) 
       {
         type: 'column',
         name: 'Orders',
-        data: data?.map((e) => e.order),
+        data: data?.map((e) => e.count),
         color: '#4f46e5',
         yAxis: 0,
       },
       {
         type: 'column',
         name: 'Total Values',
-        data: data?.map((e) => e.total_value),
+        data: data?.map((e) => e.totalValue),
         color: '#fe6a35',
         yAxis: 1,
       },
@@ -70,7 +70,7 @@ const OrderCreatedByColumn = ({ data }: { data: IOrderActionBy[] | undefined }) 
     },
     tooltip: {
       shared: true,
-      headerFormat: '<b>{point.x}</b><br/>',
+      headerFormat: '<b>{xAxis.categories}</b><br/>',
       pointFormat: '{series.name}: {point.y}<br/>',
     },
   }

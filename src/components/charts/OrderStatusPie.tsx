@@ -23,7 +23,7 @@ const OrderStatusPie = ({ statuses }: { statuses: IOrderStatusOverview[] | undef
       text: '',
     },
     tooltip: {
-      valueSuffix: '%',
+      pointFormat: `Percentage: {point.y}<br/>Count: {point.x}`,
     },
     plotOptions: {
       series: {
@@ -59,6 +59,7 @@ const OrderStatusPie = ({ statuses }: { statuses: IOrderStatusOverview[] | undef
         data: statuses?.map((status) => {
           return {
             name: status.status,
+            x: +status.count,
             y: +((status.count * 100) / total).toFixed(2),
           }
         }),

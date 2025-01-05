@@ -32,14 +32,15 @@ export interface IOrderStatusOverview {
 }
 
 export interface IOrderActionBy {
-  name: string
-  order: number
-  total_value: number
+  username: string
+  fullName?: string
+  count: number
+  totalValue: number
 }
 
 export interface IProductRatioOverview {
   name: string
-  order: number
+  count: number
 }
 
 export interface IOrderOverview {

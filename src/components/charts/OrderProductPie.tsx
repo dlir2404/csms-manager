@@ -12,7 +12,7 @@ const OrderProductPie = ({ data }: { data: IProductRatioOverview[] | undefined }
 
   const total =
     data?.reduce((sum, curr) => {
-      return sum + curr.order
+      return sum + curr.count
     }, 0) || 0
 
   const options: Options | any = {
@@ -23,7 +23,7 @@ const OrderProductPie = ({ data }: { data: IProductRatioOverview[] | undefined }
       text: '',
     },
     tooltip: {
-      valueSuffix: '%',
+      pointFormat: `Percentage: {point.y}<br/>Count: {point.x}`,
     },
     plotOptions: {
       series: {
@@ -36,7 +36,7 @@ const OrderProductPie = ({ data }: { data: IProductRatioOverview[] | undefined }
           },
           {
             enabled: true,
-            distance: -60,
+            distance: -40,
             format: '{point.percentage:.1f}%',
             style: {
               fontSize: '0.8em',
@@ -59,7 +59,8 @@ const OrderProductPie = ({ data }: { data: IProductRatioOverview[] | undefined }
         data: data?.map((e) => {
           return {
             name: e.name,
-            y: +((e.order * 100) / total).toFixed(2),
+            x: e.count,
+            y: +((e.count * 100) / total).toFixed(2),
           }
         }),
       },
