@@ -1,7 +1,7 @@
 import { httpClient } from '@/libs/api.client'
 import { ApiEndpoint } from '@/shared/constants/api.endpoint'
 import { QueryKey } from '@/shared/constants/query.key'
-import { IOrderOverview } from '@/shared/types/order'
+import { IOrderOverview, OrderStatus } from '@/shared/types/order'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetOrderOverview = () => {
@@ -13,11 +13,11 @@ export const useGetOrderOverview = () => {
   })
 }
 
-export const useGetListOrder = ({ page, pageSize }: { page?: number; pageSize?: number }) => {
+export const useGetListOrder = ({ page, pageSize, status, createdBy, processBy, from, to }: { page?: number; pageSize?: number, status?: OrderStatus, createdBy?: number, processBy?: number, from?: string, to?: string }) => {
   return useQuery({
-    queryKey: [QueryKey.GET_ORDERS, page, pageSize],
+    queryKey: [QueryKey.GET_ORDERS, page, pageSize, status, createdBy, processBy, from, to],
     queryFn: async () => {
-      return await httpClient.get(ApiEndpoint.GET_ORDERS)
+      return await httpClient.get(ApiEndpoint.GET_ORDERS, { page, pageSize, status, createdBy, processBy, from, to })
     },
   })
 }

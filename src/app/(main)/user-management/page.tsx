@@ -3,7 +3,7 @@ import { useGetListUser } from '@/services/user.service'
 import { IUser, UserRole } from '@/shared/types/user'
 import { formatDate } from '@/shared/utils/format.date'
 import { SettingOutlined } from '@ant-design/icons'
-import { Button, Table, TableProps, Tag } from 'antd'
+import { Button, Select, Table, TableProps, Tag } from 'antd'
 import React, { useState } from 'react'
 import CreateUserModal from './create-user-modal'
 import EditUserModal from './edit-user-modal'
@@ -15,11 +15,13 @@ export default function UserManagement() {
   const [editModal, setEditModal] = useState(false)
   const [choosenUser, setChoosenUser] = useState<IUser | undefined>()
   const [search, setSearch] = useState()
+  const [role, setRole] = useState<UserRole | undefined>()
 
   const { data, isLoading } = useGetListUser({
     page: currentPage,
     pageSize: 10,
-    search: search || ''
+    search: search || '',
+    role
   })
 
   const columns: TableProps<IUser>['columns'] = [
@@ -88,13 +90,32 @@ export default function UserManagement() {
     setSearch(data)
   }
 
+  const onRoleChange = (value: UserRole) => {
+    setRole(value)
+  }
+
   return (
     <>
-      <div>
+      <div className='flex justify-between'>
         <Button className="mb-4 mr-4" type="primary" onClick={() => setCreateModal(true)}>
           Create User
         </Button>
-        <Search placeholder="input search text" allowClear onSearch={onSearch} style={{ width: 600 }} loading={isLoading} />
+        <div>
+          <Select
+            className='mr-4'
+            placeholder="Role"
+            allowClear
+            style={{ width: 200 }}
+            onChange={onRoleChange}
+            options={Object.entries(UserRole).map(([key, value]) => {
+              return {
+                label: key,
+                value: value
+              }
+            })}
+          />
+          <Search placeholder="input search text" allowClear onSearch={onSearch} style={{ width: 600 }} loading={isLoading} />
+        </div>
       </div>
       <Table
         bordered
