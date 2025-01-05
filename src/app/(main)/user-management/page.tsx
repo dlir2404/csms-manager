@@ -7,16 +7,19 @@ import { Button, Table, TableProps, Tag } from 'antd'
 import React, { useState } from 'react'
 import CreateUserModal from './create-user-modal'
 import EditUserModal from './edit-user-modal'
+import Search from 'antd/es/input/Search'
 
 export default function UserManagement() {
   const [currentPage, setCurrentPage] = useState(1)
   const [createModal, setCreateModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
   const [choosenUser, setChoosenUser] = useState<IUser | undefined>()
+  const [search, setSearch] = useState()
 
   const { data, isLoading } = useGetListUser({
     page: currentPage,
     pageSize: 10,
+    search: search || ''
   })
 
   const columns: TableProps<IUser>['columns'] = [
@@ -81,12 +84,18 @@ export default function UserManagement() {
     },
   ]
 
+  const onSearch = (data: any) => {
+    setSearch(data)
+  }
+
   return (
     <>
-      <Button className="mb-4" type="primary" onClick={() => setCreateModal(true)}>
-        Create User
-      </Button>
-      <div></div>
+      <div>
+        <Button className="mb-4 mr-4" type="primary" onClick={() => setCreateModal(true)}>
+          Create User
+        </Button>
+        <Search placeholder="input search text" allowClear onSearch={onSearch} style={{ width: 600 }} loading={isLoading} />
+      </div>
       <Table
         bordered
         loading={isLoading}

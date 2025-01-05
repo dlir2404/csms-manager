@@ -8,8 +8,10 @@ import React, { useState } from 'react'
 export default function CreateCategoryModal({
   isOpen,
   setIsOpen,
+  onOK
 }: {
   isOpen: boolean
+  onOK: () => void
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,6 +24,7 @@ export default function CreateCategoryModal({
     setIsLoading(false)
     setIsOpen(false)
     form.resetFields()
+    onOK()
   })
 
   const queryClient = useQueryClient()

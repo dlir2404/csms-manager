@@ -15,7 +15,7 @@ export default function CategoryTab() {
   const [deleteModal, setDeleteModal] = useState(false)
   const [choosenCategory, setChoosenCategory] = useState<ICategory | undefined>()
 
-  const { data, isLoading } = useGetListCategory({
+  const { data, isLoading, refetch } = useGetListCategory({
     page: currentPage,
     pageSize: 10,
   })
@@ -30,6 +30,11 @@ export default function CategoryTab() {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Total product',
+      dataIndex: 'count',
+      key: 'count',
     },
     {
       title: <SettingOutlined />,
@@ -72,7 +77,7 @@ export default function CategoryTab() {
         loading={isLoading}
         columns={columns}
         scroll={{ x: 'max-content' }}
-        dataSource={data?.rows.map((item: any, index: number) => {
+        dataSource={data?.rows?.map((item: any, index: number) => {
           return {
             key: index,
             ...item,
@@ -87,7 +92,7 @@ export default function CategoryTab() {
           setCurrentPage(pagination.current || 1)
         }}
       />
-      <CreateCategoryModal isOpen={createModal} setIsOpen={setCreateModal} />
+      <CreateCategoryModal isOpen={createModal} setIsOpen={setCreateModal} onOK={() => refetch()} />
       <EditCategoryModal isOpen={editModal} setIsOpen={setEditModal} category={choosenCategory} />
       <DeleteCategoryModal
         isOpen={deleteModal}
