@@ -1,64 +1,55 @@
-import uploadToCloudinary from '@/libs/cloudinary';
-import { useGetListCategory } from '@/services/category.service';
-import { useCreateProduct } from '@/services/product.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { ICategory } from '@/shared/types/category';
-import { UserRole } from '@/shared/types/user';
-import { UploadOutlined } from '@ant-design/icons';
-import { useQueryClient } from '@tanstack/react-query';
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Switch,
-  Upload,
-} from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useState } from 'react';
+import uploadToCloudinary from '@/libs/cloudinary'
+import { useGetListCategory } from '@/services/category.service'
+import { useCreateProduct } from '@/services/product.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { ICategory } from '@/shared/types/category'
+import { UserRole } from '@/shared/types/user'
+import { UploadOutlined } from '@ant-design/icons'
+import { useQueryClient } from '@tanstack/react-query'
+import { Button, Form, Input, InputNumber, Modal, Select, Switch, Upload } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useState } from 'react'
 
 export default function CreateProductModal({
   isOpen,
   setIsOpen,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const [form] = useForm()
 
-  const { data: categories } = useGetListCategory({});
+  const { data: categories } = useGetListCategory({})
 
   const createUser = useCreateProduct(
     () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] });
-      setIsLoading(false);
-      setIsOpen(false);
-      form.resetFields();
+      queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] })
+      setIsLoading(false)
+      setIsOpen(false)
+      form.resetFields()
     },
     () => {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  );
+  )
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const onFinish = async (values: any) => {
-    setIsLoading(true);
-    const { thumbnail, ...rest } = values;
+    setIsLoading(true)
+    const { thumbnail, ...rest } = values
 
-    const result = await uploadToCloudinary(thumbnail.file);
+    const result = await uploadToCloudinary(thumbnail.file)
 
     createUser.mutate({
       thumbnail: result,
       ...rest,
-    });
-  };
+    })
+  }
 
   const handleOK = () => {
-    form.submit();
-  };
+    form.submit()
+  }
 
   return (
     <Modal
@@ -66,8 +57,8 @@ export default function CreateProductModal({
       open={isOpen}
       onOk={handleOK}
       onCancel={() => {
-        setIsOpen(false);
-        form.resetFields();
+        setIsOpen(false)
+        form.resetFields()
       }}
       confirmLoading={isLoading}
     >
@@ -110,11 +101,11 @@ export default function CreateProductModal({
             beforeUpload={(file) => {
               return new Promise((resolve, reject) => {
                 if (file.size > 2) {
-                  reject('File size excceed');
+                  reject('File size excceed')
                 } else {
-                  resolve('success');
+                  resolve('success')
                 }
-              });
+              })
             }}
             maxCount={1}
             accept="image/*"
@@ -132,7 +123,7 @@ export default function CreateProductModal({
                 return {
                   label: item.name,
                   value: item.id,
-                };
+                }
               }) || []
             }
             className="text-2xl md:text-sm"
@@ -140,5 +131,5 @@ export default function CreateProductModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

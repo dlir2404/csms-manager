@@ -1,33 +1,33 @@
-import { useDeleteCategory } from '@/services/category.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { ICategory } from '@/shared/types/category';
-import { useQueryClient } from '@tanstack/react-query';
-import { Modal } from 'antd';
-import React, { useState } from 'react';
+import { useDeleteCategory } from '@/services/category.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { ICategory } from '@/shared/types/category'
+import { useQueryClient } from '@tanstack/react-query'
+import { Modal } from 'antd'
+import React, { useState } from 'react'
 
 export default function DeleteCategoryModal({
   isOpen,
   setIsOpen,
   category,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  category: ICategory | undefined;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  category: ICategory | undefined
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const deleteProduct = useDeleteCategory(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_CATEGORIES] });
-    setIsLoading(false);
-    setIsOpen(false);
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_CATEGORIES] })
+    setIsLoading(false)
+    setIsOpen(false)
+  })
 
   const handleOK = () => {
-    setIsLoading(true);
-    deleteProduct.mutate({ id: category?.id });
-  };
+    setIsLoading(true)
+    deleteProduct.mutate({ id: category?.id })
+  }
 
   return (
     <Modal
@@ -39,5 +39,5 @@ export default function DeleteCategoryModal({
     >
       <p className="text-red-700">Are you sure to delete this category ?</p>
     </Modal>
-  );
+  )
 }

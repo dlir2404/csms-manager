@@ -1,40 +1,40 @@
-import { useEditUser } from '@/services/user.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { IUser, UserRole } from '@/shared/types/user';
-import { useQueryClient } from '@tanstack/react-query';
-import { Form, Input, Modal, Select } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useEffect, useState } from 'react';
+import { useEditUser } from '@/services/user.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { IUser, UserRole } from '@/shared/types/user'
+import { useQueryClient } from '@tanstack/react-query'
+import { Form, Input, Modal, Select } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useEffect, useState } from 'react'
 
 export default function EditUserModal({
   isOpen,
   setIsOpen,
   user,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  user: IUser | undefined;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  user: IUser | undefined
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const [form] = useForm()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const editUser = useEditUser(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_USERS] });
-    setIsLoading(false);
-    setIsOpen(false);
-    form.resetFields();
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_USERS] })
+    setIsLoading(false)
+    setIsOpen(false)
+    form.resetFields()
+  })
 
   const onFinish = (values: any) => {
-    editUser.mutate({ ...values, id: user?.id });
-  };
+    editUser.mutate({ ...values, id: user?.id })
+  }
 
   const handleOK = () => {
-    setIsLoading(true);
-    form.submit();
-  };
+    setIsLoading(true)
+    form.submit()
+  }
 
   useEffect(() => {
     if (user) {
@@ -42,9 +42,9 @@ export default function EditUserModal({
         username: user.username,
         fullName: user.fullName,
         role: user.role,
-      });
+      })
     }
-  }, [user, form]);
+  }, [user, form])
 
   return (
     <Modal
@@ -95,5 +95,5 @@ export default function EditUserModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

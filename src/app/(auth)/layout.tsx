@@ -1,12 +1,13 @@
-'use client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+'use client'
+import React from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 export default function MainLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <QueryClientProvider client={queryClient}>
@@ -14,5 +15,5 @@ export default function MainLayout({
         {children}
       </div>
     </QueryClientProvider>
-  );
+  )
 }

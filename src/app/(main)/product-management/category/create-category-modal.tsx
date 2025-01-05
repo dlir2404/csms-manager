@@ -1,38 +1,38 @@
-import { useCreateCategory } from '@/services/category.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { useQueryClient } from '@tanstack/react-query';
-import { Form, Input, Modal } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useState } from 'react';
+import { useCreateCategory } from '@/services/category.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { useQueryClient } from '@tanstack/react-query'
+import { Form, Input, Modal } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useState } from 'react'
 
 export default function CreateCategoryModal({
   isOpen,
   setIsOpen,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const [form] = useForm()
 
   // const { data: categories } = useGetListCategory({})
 
   const createCategory = useCreateCategory(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_CATEGORIES] });
-    setIsLoading(false);
-    setIsOpen(false);
-    form.resetFields();
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_CATEGORIES] })
+    setIsLoading(false)
+    setIsOpen(false)
+    form.resetFields()
+  })
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const onFinish = (values: any) => {
-    createCategory.mutate(values);
-  };
+    createCategory.mutate(values)
+  }
 
   const handleOK = () => {
-    setIsLoading(true);
-    form.submit();
-  };
+    setIsLoading(true)
+    form.submit()
+  }
 
   return (
     <Modal
@@ -60,5 +60,5 @@ export default function CreateCategoryModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

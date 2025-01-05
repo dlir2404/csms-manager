@@ -1,6 +1,6 @@
-import OrderCreatedByChart from '@/components/charts/OrderCreatedByChart';
-import OrderProcessedByChart from '@/components/charts/OrderProcessedByChart';
-import React from 'react';
+import OrderCreatedByChart from '@/components/charts/OrderCreatedByChart'
+import OrderProcessedByChart from '@/components/charts/OrderProcessedByChart'
+import React from 'react'
 
 export default function OrderByUser() {
   return (
@@ -12,5 +12,5 @@ export default function OrderByUser() {
         <OrderProcessedByChart />
       </div>
     </div>
-  );
+  )
 }

@@ -1,27 +1,24 @@
-'use client';
-import React, { useState } from 'react';
-import Highcharts, { Options } from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import { DatePicker } from 'antd';
-import dayjs from 'dayjs';
-import { useGetOrderProcessedByStatistic } from '@/services/order.service';
+'use client'
+import React, { useState } from 'react'
+import Highcharts, { Options } from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import { DatePicker } from 'antd'
+import dayjs from 'dayjs'
+import { useGetOrderProcessedByStatistic } from '@/services/order.service'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 const OrderCreatedByChart = () => {
-  const [range, setRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs(),
-    dayjs(),
-  ]);
+  const [range, setRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([dayjs(), dayjs()])
 
   const { data, isLoading } = useGetOrderProcessedByStatistic({
     from: range[0].toISOString(),
     to: range[1].toISOString(),
-  });
-  console.log(data);
+  })
+  console.log(data)
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   const options: Options | any = {
@@ -91,11 +88,11 @@ const OrderCreatedByChart = () => {
         ],
       },
     ],
-  };
+  }
 
   const onChange = (range: any) => {
-    setRange(range);
-  };
+    setRange(range)
+  }
 
   return (
     <div className="w-full h-[500px] p-4 bg-white rounded-lg shadow-sm">
@@ -109,7 +106,7 @@ const OrderCreatedByChart = () => {
         <HighchartsReact highcharts={Highcharts} options={options} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default OrderCreatedByChart;
+export default OrderCreatedByChart

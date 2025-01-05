@@ -1,16 +1,11 @@
-'use client';
-import React from 'react';
-import Highcharts, { Options } from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import { IOrderActionBy } from '@/shared/types/order';
-import BaseEmpty from '../layouts/BaseEmpty';
+'use client'
+import React from 'react'
+import Highcharts, { Options } from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import { IOrderActionBy } from '@/shared/types/order'
+import BaseEmpty from '../layouts/BaseEmpty'
 
-const OrderCreatedByColumn = ({
-  data
-}: {
-  data: IOrderActionBy[] | undefined
-}) => {
-
+const OrderCreatedByColumn = ({ data }: { data: IOrderActionBy[] | undefined }) => {
   if (!data) {
     return <BaseEmpty />
   }
@@ -26,7 +21,7 @@ const OrderCreatedByColumn = ({
       text: '',
     },
     xAxis: {
-      categories: data?.map(e => e.name),
+      categories: data?.map((e) => e.name),
       crosshair: true,
     },
     yAxis: [
@@ -58,14 +53,14 @@ const OrderCreatedByColumn = ({
       {
         type: 'column',
         name: 'Orders',
-        data: data?.map(e => e.order),
+        data: data?.map((e) => e.order),
         color: '#4f46e5',
         yAxis: 0,
       },
       {
         type: 'column',
         name: 'Total Values',
-        data: data?.map(e => e.total_value),
+        data: data?.map((e) => e.total_value),
         color: '#fe6a35',
         yAxis: 1,
       },
@@ -78,7 +73,7 @@ const OrderCreatedByColumn = ({
       headerFormat: '<b>{point.x}</b><br/>',
       pointFormat: '{series.name}: {point.y}<br/>',
     },
-  };
+  }
 
   return (
     <div className="w-full h-[500px] p-4 bg-white rounded-lg shadow-sm">
@@ -89,7 +84,7 @@ const OrderCreatedByColumn = ({
         <HighchartsReact highcharts={Highcharts} options={options} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default OrderCreatedByColumn;
+export default OrderCreatedByColumn

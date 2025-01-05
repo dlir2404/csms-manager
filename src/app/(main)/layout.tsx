@@ -1,49 +1,41 @@
-'use client';
-import { Layout, Menu, Avatar, Breadcrumb, Popover, notification } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { httpClient } from '@/libs/api.client';
-import { useGetMe } from '@/services/auth.service';
-import { ProgressProvider } from '@/components/layouts/HeaderProgress';
-import { getMenuUrlByKeyPath, MenuItems } from '@/shared/constants/menu';
-import Image from 'next/image';
+'use client'
+import { Layout, Menu, Avatar, Breadcrumb, Popover, notification } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import { httpClient } from '@/libs/api.client'
+import { useGetMe } from '@/services/auth.service'
+import { ProgressProvider } from '@/components/layouts/HeaderProgress'
+import { getMenuUrlByKeyPath, MenuItems } from '@/shared/constants/menu'
+import Image from 'next/image'
+import React from 'react'
 
-const { Content, Header } = Layout;
-const Sider = Layout.Sider;
-const queryClient = new QueryClient();
+const { Content, Header } = Layout
+const Sider = Layout.Sider
+const queryClient = new QueryClient()
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { data, isLoading } = useGetMe(queryClient);
-  const router = useRouter();
-  const pathName = usePathname();
+export default function MainLayout({ children }: { children: React.ReactNode }) {
+  const { data, isLoading } = useGetMe(queryClient)
+  const router = useRouter()
+  const pathName = usePathname()
 
   useEffect(() => {
     if (!isLoading && !data) {
       notification.error({
         placement: 'top',
         message: 'Unauthenticated',
-      });
-      window.location.href = '/login';
+      })
+      window.location.href = '/login'
     }
-  }, [data, isLoading]);
+  }, [data, isLoading])
 
   if (isLoading || !data) {
     return (
       <div className="h-[100vh] flex items-center justify-center">
-        <Image
-          width={80}
-          height={80}
-          src="/images/loading.gif"
-          alt="Loading..."
-        />
+        <Image width={80} height={80} src="/images/loading.gif" alt="Loading..." />
       </div>
-    );
+    )
   }
 
   return (
@@ -72,13 +64,13 @@ export default function MainLayout({
                 <a onClick={() => {}}>Change password</a>
                 <a
                   onClick={() => {
-                    httpClient.setToken('');
-                    localStorage.removeItem('act');
-                    window.location.href = '/login';
+                    httpClient.setToken('')
+                    localStorage.removeItem('act')
+                    window.location.href = '/login'
                     notification.success({
                       placement: 'top',
                       message: 'Logout!',
-                    });
+                    })
                   }}
                 >
                   Logout
@@ -104,13 +96,11 @@ export default function MainLayout({
             <Menu
               mode="inline"
               defaultSelectedKeys={[
-                MenuItems.findIndex(
-                  (item: any) => item.url === pathName
-                ).toString(),
+                MenuItems.findIndex((item: any) => item.url === pathName).toString(),
               ]}
               items={MenuItems}
               onSelect={(params) => {
-                router.push(getMenuUrlByKeyPath(params.keyPath));
+                router.push(getMenuUrlByKeyPath(params.keyPath))
               }}
               style={{ height: '100%', borderRight: 0 }}
             />
@@ -134,5 +124,5 @@ export default function MainLayout({
         </Layout>
       </Layout>
     </QueryClientProvider>
-  );
+  )
 }

@@ -1,25 +1,25 @@
-'use client';
-import { useGetListProduct } from '@/services/product.service';
-import { IProduct } from '@/shared/types/product';
-import { SettingOutlined } from '@ant-design/icons';
-import { Button, Table, TableProps, Tag, Image } from 'antd';
-import React, { useState } from 'react';
-import CreateProductModal from './create-product-modal';
-import EditProductModal from './edit-product-modal';
-import DeleteProductModal from './delete-product-modal';
-import { ICategory } from '@/shared/types/category';
+'use client'
+import { useGetListProduct } from '@/services/product.service'
+import { IProduct } from '@/shared/types/product'
+import { SettingOutlined } from '@ant-design/icons'
+import { Button, Table, TableProps, Tag, Image } from 'antd'
+import React, { useState } from 'react'
+import CreateProductModal from './create-product-modal'
+import EditProductModal from './edit-product-modal'
+import DeleteProductModal from './delete-product-modal'
+import { ICategory } from '@/shared/types/category'
 
 export default function ProductTab() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [createModal, setCreateModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [choosenProduct, setChoosenProduct] = useState<IProduct | undefined>();
+  const [currentPage, setCurrentPage] = useState(1)
+  const [createModal, setCreateModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [choosenProduct, setChoosenProduct] = useState<IProduct | undefined>()
 
   const { data, isLoading } = useGetListProduct({
     page: currentPage,
     pageSize: 10,
-  });
+  })
 
   const columns: TableProps<IProduct>['columns'] = [
     {
@@ -49,9 +49,9 @@ export default function ProductTab() {
       key: 'available',
       render: (value) => {
         if (value) {
-          return <Tag color="green">Available</Tag>;
+          return <Tag color="green">Available</Tag>
         }
-        return <Tag color="red">Unavailable</Tag>;
+        return <Tag color="red">Unavailable</Tag>
       },
     },
     {
@@ -62,10 +62,10 @@ export default function ProductTab() {
         return (
           <>
             {values.map((value: ICategory) => {
-              return <Tag key={value.id}>{value.name}</Tag>;
+              return <Tag key={value.id}>{value.name}</Tag>
             })}
           </>
-        );
+        )
       },
     },
     {
@@ -77,8 +77,8 @@ export default function ProductTab() {
             <Button
               variant="outlined"
               onClick={() => {
-                setChoosenProduct(record);
-                setEditModal(true);
+                setChoosenProduct(record)
+                setEditModal(true)
               }}
             >
               Edit
@@ -86,25 +86,21 @@ export default function ProductTab() {
             <Button
               danger
               onClick={() => {
-                setChoosenProduct(record);
-                setDeleteModal(true);
+                setChoosenProduct(record)
+                setDeleteModal(true)
               }}
             >
               Delete
             </Button>
           </div>
-        );
+        )
       },
     },
-  ];
+  ]
 
   return (
     <>
-      <Button
-        className="mb-4"
-        type="primary"
-        onClick={() => setCreateModal(true)}
-      >
+      <Button className="mb-4" type="primary" onClick={() => setCreateModal(true)}>
         Add Product
       </Button>
       <div>{/* filter */}</div>
@@ -117,27 +113,23 @@ export default function ProductTab() {
           return {
             key: index,
             ...item,
-          };
+          }
         })}
         pagination={{
           pageSize: 10,
           total: data?.count,
         }}
         onChange={(pagination) => {
-          setCurrentPage(pagination.current || 1);
+          setCurrentPage(pagination.current || 1)
         }}
       />
       <CreateProductModal isOpen={createModal} setIsOpen={setCreateModal} />
-      <EditProductModal
-        isOpen={editModal}
-        setIsOpen={setEditModal}
-        product={choosenProduct}
-      />
+      <EditProductModal isOpen={editModal} setIsOpen={setEditModal} product={choosenProduct} />
       <DeleteProductModal
         isOpen={deleteModal}
         setIsOpen={setDeleteModal}
         product={choosenProduct}
       />
     </>
-  );
+  )
 }

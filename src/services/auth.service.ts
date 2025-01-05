@@ -1,23 +1,22 @@
-import { httpClient } from '@/libs/api.client';
-import { ApiEndpoint } from '@/shared/constants/api.endpoint';
-import { QueryKey } from '@/shared/constants/query.key';
-import { useBaseMutation } from '@/shared/hooks/mutation';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { httpClient } from '@/libs/api.client'
+import { ApiEndpoint } from '@/shared/constants/api.endpoint'
+import { QueryKey } from '@/shared/constants/query.key'
+import { useBaseMutation } from '@/shared/hooks/mutation'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 
 export const useLogin = (onOk?: () => void) => {
   return useBaseMutation({
-    mutationFn: async (body: any) =>
-      await httpClient.post(ApiEndpoint.LOGIN, body),
+    mutationFn: async (body: any) => await httpClient.post(ApiEndpoint.LOGIN, body),
     onSuccess: (data: any) => {
-      const accessToken = data.token;
+      const accessToken = data.token
 
-      localStorage.setItem('act', accessToken);
-      httpClient.setToken(accessToken);
+      localStorage.setItem('act', accessToken)
+      httpClient.setToken(accessToken)
 
-      onOk && onOk();
+      onOk && onOk()
     },
-  });
-};
+  })
+}
 
 export const useGetMe = (queryClient: QueryClient) => {
   return useQuery(
@@ -25,17 +24,17 @@ export const useGetMe = (queryClient: QueryClient) => {
       queryKey: [QueryKey.GET_ME],
       queryFn: async () => {
         if (!httpClient.accessToken) {
-          const accessToken = localStorage.getItem('act');
-          if (!accessToken) return null;
+          const accessToken = localStorage.getItem('act')
+          if (!accessToken) return null
 
-          httpClient.setToken(accessToken);
+          httpClient.setToken(accessToken)
         }
 
-        const result = await httpClient.get(ApiEndpoint.GET_ME);
+        const result = await httpClient.get(ApiEndpoint.GET_ME)
 
-        return result;
+        return result
       },
     },
     queryClient
-  );
-};
+  )
+}

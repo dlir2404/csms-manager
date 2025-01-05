@@ -1,37 +1,37 @@
-import { useCreateUser } from '@/services/user.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { UserRole } from '@/shared/types/user';
-import { useQueryClient } from '@tanstack/react-query';
-import { Form, Input, Modal, Select } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useState } from 'react';
+import { useCreateUser } from '@/services/user.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { UserRole } from '@/shared/types/user'
+import { useQueryClient } from '@tanstack/react-query'
+import { Form, Input, Modal, Select } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useState } from 'react'
 
 export default function CreateUserModal({
   isOpen,
   setIsOpen,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const [form] = useForm()
 
   const createUser = useCreateUser(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_USERS] });
-    setIsLoading(false);
-    setIsOpen(false);
-    form.resetFields();
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_USERS] })
+    setIsLoading(false)
+    setIsOpen(false)
+    form.resetFields()
+  })
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const onFinish = (values: any) => {
-    createUser.mutate(values);
-  };
+    createUser.mutate(values)
+  }
 
   const handleOK = () => {
-    setIsLoading(true);
-    form.submit();
-  };
+    setIsLoading(true)
+    form.submit()
+  }
 
   return (
     <Modal
@@ -100,5 +100,5 @@ export default function CreateUserModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

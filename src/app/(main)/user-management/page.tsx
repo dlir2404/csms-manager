@@ -1,23 +1,23 @@
-'use client';
-import { useGetListUser } from '@/services/user.service';
-import { IUser, UserRole } from '@/shared/types/user';
-import { formatDate } from '@/shared/utils/format.date';
-import { SettingOutlined } from '@ant-design/icons';
-import { Button, Table, TableProps, Tag } from 'antd';
-import React, { useState } from 'react';
-import CreateUserModal from './create-user-modal';
-import EditUserModal from './edit-user-modal';
+'use client'
+import { useGetListUser } from '@/services/user.service'
+import { IUser, UserRole } from '@/shared/types/user'
+import { formatDate } from '@/shared/utils/format.date'
+import { SettingOutlined } from '@ant-design/icons'
+import { Button, Table, TableProps, Tag } from 'antd'
+import React, { useState } from 'react'
+import CreateUserModal from './create-user-modal'
+import EditUserModal from './edit-user-modal'
 
 export default function UserManagement() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [createModal, setCreateModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [choosenUser, setChoosenUser] = useState<IUser | undefined>();
+  const [currentPage, setCurrentPage] = useState(1)
+  const [createModal, setCreateModal] = useState(false)
+  const [editModal, setEditModal] = useState(false)
+  const [choosenUser, setChoosenUser] = useState<IUser | undefined>()
 
   const { data, isLoading } = useGetListUser({
     page: currentPage,
     pageSize: 10,
-  });
+  })
 
   const columns: TableProps<IUser>['columns'] = [
     {
@@ -40,12 +40,11 @@ export default function UserManagement() {
       dataIndex: 'role',
       key: 'role',
       render: (value) => {
-        if (value === UserRole.MANAGER) return <Tag color="blue">Manager</Tag>;
-        if (value === UserRole.BARISTA) return <Tag color="green">Barista</Tag>;
-        if (value === UserRole.ORDER_TAKER)
-          return <Tag color="volcano">Order Taker</Tag>;
+        if (value === UserRole.MANAGER) return <Tag color="blue">Manager</Tag>
+        if (value === UserRole.BARISTA) return <Tag color="green">Barista</Tag>
+        if (value === UserRole.ORDER_TAKER) return <Tag color="volcano">Order Taker</Tag>
 
-        return '';
+        return ''
       },
     },
     {
@@ -69,26 +68,22 @@ export default function UserManagement() {
             <Button
               variant="outlined"
               onClick={() => {
-                setChoosenUser(record);
-                setEditModal(true);
+                setChoosenUser(record)
+                setEditModal(true)
               }}
             >
               Edit
             </Button>
             <Button danger>Delete</Button>
           </div>
-        );
+        )
       },
     },
-  ];
+  ]
 
   return (
     <>
-      <Button
-        className="mb-4"
-        type="primary"
-        onClick={() => setCreateModal(true)}
-      >
+      <Button className="mb-4" type="primary" onClick={() => setCreateModal(true)}>
         Create User
       </Button>
       <div></div>
@@ -101,7 +96,7 @@ export default function UserManagement() {
           return {
             key: index,
             ...item,
-          };
+          }
         })}
         pagination={{
           pageSize: 10,
@@ -109,15 +104,11 @@ export default function UserManagement() {
           showQuickJumper: true,
         }}
         onChange={(pagination) => {
-          setCurrentPage(pagination.current || 1);
+          setCurrentPage(pagination.current || 1)
         }}
       />
       <CreateUserModal isOpen={createModal} setIsOpen={setCreateModal} />
-      <EditUserModal
-        isOpen={editModal}
-        setIsOpen={setEditModal}
-        user={choosenUser}
-      />
+      <EditUserModal isOpen={editModal} setIsOpen={setEditModal} user={choosenUser} />
     </>
-  );
+  )
 }

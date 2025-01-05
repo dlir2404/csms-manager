@@ -1,22 +1,19 @@
-'use client';
-import React from 'react';
-import Highcharts, { Options } from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import { IProductRatioOverview } from '@/shared/types/order';
-import BaseEmpty from '../layouts/BaseEmpty';
+'use client'
+import React from 'react'
+import Highcharts, { Options } from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import { IProductRatioOverview } from '@/shared/types/order'
+import BaseEmpty from '../layouts/BaseEmpty'
 
-const OrderProductPie = ({
-  data
-}: {
-  data: IProductRatioOverview[] | undefined
-}) => {
+const OrderProductPie = ({ data }: { data: IProductRatioOverview[] | undefined }) => {
   if (!data) {
     return <BaseEmpty />
   }
 
-  const total = data?.reduce((sum, curr) => {
-    return sum + curr.order
-  }, 0) || 0
+  const total =
+    data?.reduce((sum, curr) => {
+      return sum + curr.order
+    }, 0) || 0
 
   const options: Options | any = {
     chart: {
@@ -59,15 +56,15 @@ const OrderProductPie = ({
       {
         type: 'pie',
         name: 'Percentage',
-        data: data?.map(e => {
+        data: data?.map((e) => {
           return {
             name: e.name,
-            y: +(e.order * 100 / total).toFixed(2)
+            y: +((e.order * 100) / total).toFixed(2),
           }
         }),
       },
     ],
-  };
+  }
 
   return (
     <div className="w-full h-[500px] bg-white rounded-lg shadow-sm">
@@ -78,7 +75,7 @@ const OrderProductPie = ({
         <HighchartsReact highcharts={Highcharts} options={options} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default OrderProductPie;
+export default OrderProductPie

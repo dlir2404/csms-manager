@@ -1,33 +1,33 @@
-import { useDeleteProduct } from '@/services/product.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { IProduct } from '@/shared/types/product';
-import { useQueryClient } from '@tanstack/react-query';
-import { Modal } from 'antd';
-import React, { useState } from 'react';
+import { useDeleteProduct } from '@/services/product.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { IProduct } from '@/shared/types/product'
+import { useQueryClient } from '@tanstack/react-query'
+import { Modal } from 'antd'
+import React, { useState } from 'react'
 
 export default function DeleteProductModal({
   isOpen,
   setIsOpen,
   product,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  product: IProduct | undefined;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  product: IProduct | undefined
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const deleteProduct = useDeleteProduct(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] });
-    setIsLoading(false);
-    setIsOpen(false);
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] })
+    setIsLoading(false)
+    setIsOpen(false)
+  })
 
   const handleOK = () => {
-    setIsLoading(true);
-    deleteProduct.mutate({ id: product?.id });
-  };
+    setIsLoading(true)
+    deleteProduct.mutate({ id: product?.id })
+  }
 
   return (
     <Modal
@@ -39,5 +39,5 @@ export default function DeleteProductModal({
     >
       <p className="text-red-700">Are you sure to delete this product ?</p>
     </Modal>
-  );
+  )
 }

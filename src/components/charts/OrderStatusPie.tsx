@@ -1,22 +1,18 @@
-'use client';
-import React from 'react';
-import Highcharts, { Options } from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import BaseLoading from '../layouts/BaseLoading';
-import BaseEmpty from '../layouts/BaseEmpty';
-import { IOrderStatusOverview } from '@/shared/types/order';
+'use client'
+import React from 'react'
+import Highcharts, { Options } from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import BaseLoading from '../layouts/BaseLoading'
+import BaseEmpty from '../layouts/BaseEmpty'
+import { IOrderStatusOverview } from '@/shared/types/order'
 
-const OrderStatusPie = ({
-  statuses
-}: {
-  statuses: IOrderStatusOverview[] | undefined
-}) => {
+const OrderStatusPie = ({ statuses }: { statuses: IOrderStatusOverview[] | undefined }) => {
   if (!statuses) {
     return <BaseLoading />
   }
 
   const total = statuses?.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue.count;
+    return accumulator + currentValue.count
   }, 0)
 
   const options: Options | any = {
@@ -63,12 +59,12 @@ const OrderStatusPie = ({
         data: statuses?.map((status) => {
           return {
             name: status.status,
-            y: +((status.count) * 100 / total).toFixed(2)
+            y: +((status.count * 100) / total).toFixed(2),
           }
         }),
       },
     ],
-  };
+  }
 
   return (
     <div className="w-full h-[500px] bg-white rounded-lg shadow-sm">
@@ -77,14 +73,15 @@ const OrderStatusPie = ({
       </div>
       {typeof window !== 'undefined' && (
         <>
-          {total == 0
-            ? <BaseEmpty />
-            : <HighchartsReact highcharts={Highcharts} options={options} />
-          }
+          {total == 0 ? (
+            <BaseEmpty />
+          ) : (
+            <HighchartsReact highcharts={Highcharts} options={options} />
+          )}
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default OrderStatusPie

@@ -4,7 +4,7 @@ import {
   PieChartOutlined,
   ProductOutlined,
   TeamOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 
 export const MenuItems: any = [
   {
@@ -71,18 +71,18 @@ export const MenuItems: any = [
     url: '/revenue-management',
     icon: <FundViewOutlined />,
   },
-];
+]
 
 export const getMenuUrlByKeyPath = (keyPath: string[]) => {
-  let items = MenuItems;
-  let path = '';
+  let items = MenuItems
+  let path = ''
   while (keyPath.length > 1) {
-    const key = keyPath.pop() || '';
+    const key = keyPath.pop() || ''
 
-    const item = items.find((item: any) => item.key === +key);
-    path += item.url;
-    items = item.children;
+    const item = items.find((item: any) => item.key === +key)
+    path += item.url
+    items = item.children
   }
 
-  return path + items.find((item: any) => item.key === +keyPath[0]).url;
-};
+  return path + items.find((item: any) => item.key === +keyPath[0]).url
+}

@@ -1,52 +1,52 @@
-import { useGetListCategory } from '@/services/category.service';
-import { useEditProduct } from '@/services/product.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { ICategory } from '@/shared/types/category';
-import { IProduct } from '@/shared/types/product';
-import { useQueryClient } from '@tanstack/react-query';
-import { Form, Input, InputNumber, Modal, Select, Switch } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useEffect, useState } from 'react';
+import { useGetListCategory } from '@/services/category.service'
+import { useEditProduct } from '@/services/product.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { ICategory } from '@/shared/types/category'
+import { IProduct } from '@/shared/types/product'
+import { useQueryClient } from '@tanstack/react-query'
+import { Form, Input, InputNumber, Modal, Select, Switch } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useEffect, useState } from 'react'
 
 export default function EditProductModal({
   isOpen,
   setIsOpen,
   product,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  product: IProduct | undefined;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  product: IProduct | undefined
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const { data: categories } = useGetListCategory({});
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const { data: categories } = useGetListCategory({})
+  const [form] = useForm()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const editProduct = useEditProduct(
     () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] });
-      setIsLoading(false);
-      setIsOpen(false);
-      form.resetFields();
+      queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] })
+      setIsLoading(false)
+      setIsOpen(false)
+      form.resetFields()
     },
     () => {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  );
+  )
 
   const onFinish = (values: any) => {
     if (!values.categoryIds) {
-      values.categoryIds = [];
+      values.categoryIds = []
     }
 
-    setIsLoading(true);
-    editProduct.mutate({ ...values, id: product?.id });
-  };
+    setIsLoading(true)
+    editProduct.mutate({ ...values, id: product?.id })
+  }
 
   const handleOK = () => {
-    form.submit();
-  };
+    form.submit()
+  }
 
   useEffect(() => {
     if (product) {
@@ -56,9 +56,9 @@ export default function EditProductModal({
         thumbnail: product.thumbnail,
         available: !!product.available,
         categoryIds: product.categories.map((item) => item.id),
-      });
+      })
     }
-  }, [product, form]);
+  }, [product, form])
 
   return (
     <Modal
@@ -113,7 +113,7 @@ export default function EditProductModal({
                 return {
                   label: item.name,
                   value: item.id,
-                };
+                }
               }) || []
             }
             className="text-2xl md:text-sm"
@@ -121,5 +121,5 @@ export default function EditProductModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

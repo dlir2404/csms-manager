@@ -1,18 +1,18 @@
-'use client';
-import { useGetListOrder } from '@/services/order.service';
-import { IOder, OrderStatus } from '@/shared/types/order';
-import { IProduct } from '@/shared/types/product';
-import { formatDate } from '@/shared/utils/format.date';
-import { formatCurrency } from '@/shared/utils/formatCurrency';
-import { Table, TableProps, Tag } from 'antd';
-import React, { useState } from 'react';
+'use client'
+import { useGetListOrder } from '@/services/order.service'
+import { IOder, OrderStatus } from '@/shared/types/order'
+import { IProduct } from '@/shared/types/product'
+import { formatDate } from '@/shared/utils/format.date'
+import { formatCurrency } from '@/shared/utils/formatCurrency'
+import { Table, TableProps, Tag } from 'antd'
+import React, { useState } from 'react'
 
 export default function OrderManagement() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
   const { data, isLoading } = useGetListOrder({
     page: currentPage,
     pageSize: 10,
-  });
+  })
 
   const columns: TableProps<IOder>['columns'] = [
     {
@@ -36,14 +36,11 @@ export default function OrderManagement() {
       dataIndex: 'status',
       key: 'status',
       render: (value) => {
-        if (value === OrderStatus.CREATED)
-          return <Tag color="volcano">Waiting for processing</Tag>;
-        if (value === OrderStatus.PROCESSING)
-          return <Tag color="blue">Processing</Tag>;
-        if (value === OrderStatus.COMPLETED)
-          return <Tag color="green">Completed</Tag>;
+        if (value === OrderStatus.CREATED) return <Tag color="volcano">Waiting for processing</Tag>
+        if (value === OrderStatus.PROCESSING) return <Tag color="blue">Processing</Tag>
+        if (value === OrderStatus.COMPLETED) return <Tag color="green">Completed</Tag>
 
-        return '';
+        return ''
       },
     },
     {
@@ -51,10 +48,10 @@ export default function OrderManagement() {
       dataIndex: 'products',
       key: 'products',
       render: (value: IProduct[]) => {
-        let quantity = 0;
+        let quantity = 0
 
-        value.forEach((product) => (quantity += product.quantity || 0));
-        return <p>{quantity}</p>;
+        value.forEach((product) => (quantity += product.quantity || 0))
+        return <p>{quantity}</p>
       },
     },
     {
@@ -80,7 +77,7 @@ export default function OrderManagement() {
     //     )
     //   }
     // }
-  ];
+  ]
 
   return (
     <div>
@@ -93,17 +90,17 @@ export default function OrderManagement() {
           return {
             key: index,
             ...item,
-          };
+          }
         })}
         pagination={{
           pageSize: 10,
           total: data?.count,
         }}
         onChange={(pagination) => {
-          console.log(pagination);
-          setCurrentPage(pagination.current || 1);
+          console.log(pagination)
+          setCurrentPage(pagination.current || 1)
         }}
       />
     </div>
-  );
+  )
 }

@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run format && npm run lint && next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "prebuild": "next lint --fix"
+    "lint": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:strict": "eslint --max-warnings=0 ."
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",

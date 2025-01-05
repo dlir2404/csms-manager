@@ -1,48 +1,48 @@
-import { useEditCategory } from '@/services/category.service';
-import { QueryKey } from '@/shared/constants/query.key';
-import { ICategory } from '@/shared/types/category';
-import { useQueryClient } from '@tanstack/react-query';
-import { Form, Input, Modal } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import React, { useEffect, useState } from 'react';
+import { useEditCategory } from '@/services/category.service'
+import { QueryKey } from '@/shared/constants/query.key'
+import { ICategory } from '@/shared/types/category'
+import { useQueryClient } from '@tanstack/react-query'
+import { Form, Input, Modal } from 'antd'
+import { useForm } from 'antd/es/form/Form'
+import React, { useEffect, useState } from 'react'
 
 export default function EditCategoryModal({
   isOpen,
   setIsOpen,
   category,
 }: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  category: ICategory | undefined;
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  category: ICategory | undefined
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [form] = useForm();
+  const [isLoading, setIsLoading] = useState(false)
+  const [form] = useForm()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   const editCategory = useEditCategory(() => {
-    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] });
-    setIsLoading(false);
-    setIsOpen(false);
-    form.resetFields();
-  });
+    queryClient.invalidateQueries({ queryKey: [QueryKey.GET_PRODUCTS] })
+    setIsLoading(false)
+    setIsOpen(false)
+    form.resetFields()
+  })
 
   const onFinish = (values: any) => {
-    setIsLoading(true);
-    editCategory.mutate({ ...values, id: category?.id });
-  };
+    setIsLoading(true)
+    editCategory.mutate({ ...values, id: category?.id })
+  }
 
   const handleOK = () => {
-    form.submit();
-  };
+    form.submit()
+  }
 
   useEffect(() => {
     if (category) {
       form.setFieldsValue({
         name: category.name,
-      });
+      })
     }
-  }, [category, form]);
+  }, [category, form])
 
   return (
     <Modal
@@ -70,5 +70,5 @@ export default function EditCategoryModal({
         </Form.Item>
       </Form>
     </Modal>
-  );
+  )
 }

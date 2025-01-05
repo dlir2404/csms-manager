@@ -5,10 +5,10 @@ export enum UserRole {
 }
 
 export interface IUser {
-  id: number;
-  username: string;
-  fullName?: string;
-  role: UserRole;
-  createdAt: string;
-  updatedAt: string;
+  id: number
+  username: string
+  fullName?: string
+  role: UserRole
+  createdAt: string
+  updatedAt: string
 }

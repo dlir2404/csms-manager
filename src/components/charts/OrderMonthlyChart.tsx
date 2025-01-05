@@ -1,19 +1,19 @@
-'use client';
-import React, { useState } from 'react';
-import Highcharts, { Options } from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import { useGetOrderMonthlyStatistic } from '@/services/order.service';
-import { DatePicker } from 'antd';
-import dayjs from 'dayjs';
+'use client'
+import React, { useState } from 'react'
+import Highcharts, { Options } from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import { useGetOrderMonthlyStatistic } from '@/services/order.service'
+import { DatePicker } from 'antd'
+import dayjs from 'dayjs'
 
 const OrderMonthlyChart = () => {
-  const [day, setDay] = useState<dayjs.Dayjs>(dayjs());
+  const [day, setDay] = useState<dayjs.Dayjs>(dayjs())
   const { data, isLoading } = useGetOrderMonthlyStatistic({
     year: day.year(),
-  });
+  })
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   const options: Options = {
@@ -56,11 +56,11 @@ const OrderMonthlyChart = () => {
       headerFormat: '<b>{point.x}</b><br/>',
       pointFormat: '{point.y} orders',
     },
-  };
+  }
 
   const onChange = (date: dayjs.Dayjs) => {
-    setDay(date);
-  };
+    setDay(date)
+  }
 
   return (
     <div className="w-full h-[500px] p-4 bg-white rounded-lg shadow-sm">
@@ -74,7 +74,7 @@ const OrderMonthlyChart = () => {
         <HighchartsReact highcharts={Highcharts} options={options} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default OrderMonthlyChart;
+export default OrderMonthlyChart

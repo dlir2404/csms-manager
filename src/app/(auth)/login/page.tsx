@@ -1,21 +1,21 @@
-'use client';
-import { useLogin } from '@/services/auth.service';
-import { Button, Form, Input, notification } from 'antd';
-import { useRouter } from 'next/navigation';
-import React from 'react';
+'use client'
+import { useLogin } from '@/services/auth.service'
+import { Button, Form, Input, notification } from 'antd'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
 export default function Login() {
-  const router = useRouter();
+  const router = useRouter()
   const login = useLogin(() => {
     notification.success({
       message: 'Login successfully',
-    });
-    router.push('/');
-  });
+    })
+    router.push('/')
+  })
 
   const onFinish = (values: { username: string; password: string }) => {
-    login.mutate(values);
-  };
+    login.mutate(values)
+  }
 
   return (
     <div className="mx-4 px-10 py-4 border border-gray-400 rounded-xl">
@@ -51,5 +51,5 @@ export default function Login() {
         </div>
       </Form>
     </div>
-  );
+  )
 }

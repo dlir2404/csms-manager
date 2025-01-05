@@ -1,109 +1,108 @@
-'use client';
-import OrderCreatedByColumn from '@/components/charts/OrderCreatedByColumn';
-import OrderDailyChart from '@/components/charts/OrderDailyChart';
-import OrderMonthlyChart from '@/components/charts/OrderMonthlyChart';
-import OrderProcessedByColumn from '@/components/charts/OrderProcessedByColumn';
-import OrderProductPie from '@/components/charts/OrderProductPie';
-import OrderStatusPie from '@/components/charts/OrderStatusPie';
-import BaseBox from '@/components/statistics/BaseBox';
-import { useGetOrderOverview } from '@/services/order.service';
-import { IOrderOverview } from '@/shared/types/order';
-import { Col, Row } from 'antd';
-import React from 'react';
+'use client'
+import OrderCreatedByColumn from '@/components/charts/OrderCreatedByColumn'
+import OrderDailyChart from '@/components/charts/OrderDailyChart'
+import OrderMonthlyChart from '@/components/charts/OrderMonthlyChart'
+import OrderProcessedByColumn from '@/components/charts/OrderProcessedByColumn'
+import OrderProductPie from '@/components/charts/OrderProductPie'
+import OrderStatusPie from '@/components/charts/OrderStatusPie'
+import BaseBox from '@/components/statistics/BaseBox'
+import { IOrderOverview } from '@/shared/types/order'
+import { Col, Row } from 'antd'
+import React from 'react'
 
 const fakeData: IOrderOverview = {
   today: {
     totalOrders: 10,
     totalOrderValue: 200000,
     avgOrderValue: 50000,
-    totalItems: 5
+    totalItems: 5,
   },
   yesterday: {
     totalOrders: 2,
     totalOrderValue: 100000,
     avgOrderValue: 20000,
-    totalItems: 2
+    totalItems: 2,
   },
   statuses: [
     {
       status: 'created',
-      count: 3
+      count: 3,
     },
     {
       status: 'processing',
-      count: 4
+      count: 4,
     },
     {
       status: 'completed',
-      count: 5
+      count: 5,
     },
   ],
   createdBy: [
     {
-      name: "Order taker 1",
+      name: 'Order taker 1',
       order: 1,
       total_value: 200000,
     },
     {
-      name: "Order taker 2",
+      name: 'Order taker 2',
       order: 4,
       total_value: 500000,
     },
     {
-      name: "Order taker 3",
+      name: 'Order taker 3',
       order: 2,
       total_value: 400000,
     },
     {
-      name: "Order taker 4",
+      name: 'Order taker 4',
       order: 5,
       total_value: 800000,
     },
   ],
   processBy: [
     {
-      name: "Order taker 1",
+      name: 'Order taker 1',
       order: 1,
       total_value: 200000,
     },
     {
-      name: "Order taker 2",
+      name: 'Order taker 2',
       order: 4,
       total_value: 500000,
     },
     {
-      name: "Order taker 3",
+      name: 'Order taker 3',
       order: 2,
       total_value: 400000,
     },
     {
-      name: "Order taker 4",
+      name: 'Order taker 4',
       order: 5,
       total_value: 800000,
     },
   ],
   productRatio: [
     {
-      name: "Product 1",
-      order: 10
+      name: 'Product 1',
+      order: 10,
     },
     {
-      name: "Product 2",
-      order: 12
+      name: 'Product 2',
+      order: 12,
     },
     {
-      name: "Product 3",
-      order: 15
+      name: 'Product 3',
+      order: 15,
     },
     {
-      name: "Product 4",
-      order: 7
+      name: 'Product 4',
+      order: 7,
     },
     {
-      name: "Product 5",
-      order: 1
+      name: 'Product 5',
+      order: 1,
     },
-  ]
+  ],
 }
 
 export default function Overview() {
@@ -170,5 +169,5 @@ export default function Overview() {
         <OrderMonthlyChart />
       </Row>
     </div>
-  );
+  )
 }

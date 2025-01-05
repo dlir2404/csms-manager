@@ -1,10 +1,6 @@
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import { Tooltip } from 'antd';
-import React from 'react';
+import { ArrowDownOutlined, ArrowUpOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
+import React from 'react'
 
 export default function BaseBox({
   title,
@@ -12,10 +8,10 @@ export default function BaseBox({
   compareTo,
   showCompare,
 }: {
-  title: string;
-  number: number;
-  showCompare: boolean;
-  compareTo?: number;
+  title: string
+  number: number
+  showCompare: boolean
+  compareTo?: number
 }) {
   const compare = () => {
     if (compareTo != undefined && compareTo != null) {
@@ -23,50 +19,36 @@ export default function BaseBox({
         return (
           <div className="text-success flex gap-2">
             <ArrowUpOutlined /> 0 %
-            <Tooltip
-              placement="bottom"
-              title={'Compare to yesterday'}
-              arrow={true}
-            >
+            <Tooltip placement="bottom" title={'Compare to yesterday'} arrow={true}>
               <QuestionCircleOutlined />
             </Tooltip>
           </div>
-        );
+        )
       } else if (number >= compareTo) {
-        const percent =
-          compareTo !== 0 ? ((number / compareTo) * 100 - 100).toFixed(0) : 100;
+        const percent = compareTo !== 0 ? ((number / compareTo) * 100 - 100).toFixed(0) : 100
         return (
           <div className="text-success flex gap-2">
             <ArrowUpOutlined /> {percent} %
-            <Tooltip
-              placement="bottom"
-              title={'Compare to yesterday'}
-              arrow={true}
-            >
+            <Tooltip placement="bottom" title={'Compare to yesterday'} arrow={true}>
               <QuestionCircleOutlined />
             </Tooltip>
           </div>
-        );
+        )
       } else {
-        const percent =
-          number !== 0 ? (100 - (compareTo / number) * 100).toFixed(0) : 100;
+        const percent = number !== 0 ? (100 - (compareTo / number) * 100).toFixed(0) : 100
         return (
           <div className="text-error flex gap-2">
             <ArrowDownOutlined /> {percent} %
-            <Tooltip
-              placement="bottom"
-              title={'Compare to yesterday'}
-              arrow={true}
-            >
+            <Tooltip placement="bottom" title={'Compare to yesterday'} arrow={true}>
               <QuestionCircleOutlined />
             </Tooltip>
           </div>
-        );
+        )
       }
     } else {
-      return '';
+      return ''
     }
-  };
+  }
 
   return (
     <div className=" py-4 px-6 bg-white rounded-md flex-1 shadow-md">
@@ -76,5 +58,5 @@ export default function BaseBox({
         {showCompare && compare()}
       </div>
     </div>
-  );
+  )
 }
