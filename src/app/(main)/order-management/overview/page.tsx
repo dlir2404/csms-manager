@@ -7,109 +7,11 @@ import OrderProductPie from '@/components/charts/OrderProductPie'
 import OrderStatusPie from '@/components/charts/OrderStatusPie'
 import BaseBox from '@/components/statistics/BaseBox'
 import { useGetOrderOverview } from '@/services/order.service'
-import { IOrderOverview } from '@/shared/types/order'
 import { Col, Row } from 'antd'
 import React from 'react'
 
-const fakeData: IOrderOverview = {
-  today: {
-    totalOrders: 10,
-    totalOrderValue: 200000,
-    avgOrderValue: 50000,
-    totalItems: 5,
-  },
-  yesterday: {
-    totalOrders: 2,
-    totalOrderValue: 100000,
-    avgOrderValue: 20000,
-    totalItems: 2,
-  },
-  statuses: [
-    {
-      status: 'created',
-      count: 3,
-    },
-    {
-      status: 'processing',
-      count: 4,
-    },
-    {
-      status: 'completed',
-      count: 5,
-    },
-  ],
-  createdBy: [
-    {
-      username: 'Order taker 1',
-      count: 1,
-      totalValue: 200000,
-    },
-    {
-      username: 'Order taker 2',
-      count: 4,
-      totalValue: 500000,
-    },
-    {
-      username: 'Order taker 3',
-      count: 2,
-      totalValue: 400000,
-    },
-    {
-      username: 'Order taker 4',
-      count: 5,
-      totalValue: 800000,
-    },
-  ],
-  processBy: [
-    {
-      username: 'Order taker 1',
-      count: 1,
-      totalValue: 200000,
-    },
-    {
-      username: 'Order taker 2',
-      count: 4,
-      totalValue: 500000,
-    },
-    {
-      username: 'Order taker 3',
-      count: 2,
-      totalValue: 400000,
-    },
-    {
-      username: 'Order taker 4',
-      count: 5,
-      totalValue: 800000,
-    },
-  ],
-  productRatio: [
-    {
-      name: 'Product 1',
-      count: 10,
-    },
-    {
-      name: 'Product 2',
-      count: 12,
-    },
-    {
-      name: 'Product 3',
-      count: 15,
-    },
-    {
-      name: 'Product 4',
-      count: 7,
-    },
-    {
-      name: 'Product 5',
-      count: 1,
-    },
-  ],
-}
-
 export default function Overview() {
   const { data } = useGetOrderOverview();
-
-  // const data = fakeData
 
   return (
     <div>

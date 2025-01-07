@@ -30,4 +30,7 @@ export enum ApiEndpoint {
 
   //payment
   GET_PAYMENTS = '/api/payment/all',
+  GET_PAYMENTS_OVERVIEW = '/api/payment/overview',
+  GET_PAYMENTS_DAILY_STATISTIC = '/api/payment/statistic/day',
+  GET_PAYMENTS_MONTHLY_STATISTIC = '/api/payment/statistic/month',
 }

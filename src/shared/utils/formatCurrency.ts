@@ -1,5 +1,4 @@
 export function formatCurrency(value: number | string): string {
-  console.log(value)
   if (typeof value === 'string') {
     value = parseFloat(value)
   }

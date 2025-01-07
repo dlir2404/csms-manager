@@ -28,7 +28,7 @@ export default function BaseBox({
           </div>
         )
       } else if (number >= compareTo) {
-        const percent = compareTo !== 0 ? ((number / compareTo) * 100 - 100).toFixed(0) : 100
+        const percent = +compareTo !== 0 ? ((number / compareTo) * 100 - 100).toFixed(0) : 100
         return (
           <div className="text-success flex gap-2">
             <ArrowUpOutlined /> {percent} %
@@ -38,7 +38,8 @@ export default function BaseBox({
           </div>
         )
       } else {
-        const percent = number !== 0 ? (100 - (compareTo / number) * 100).toFixed(0) : 100
+        const percent = +number !== 0 ? (100 - (compareTo / number) * 100).toFixed(0) : 100
+
         return (
           <div className="text-error flex gap-2">
             <ArrowDownOutlined /> {percent} %
