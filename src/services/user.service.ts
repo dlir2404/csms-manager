@@ -44,3 +44,19 @@ export const useEditUser = (onOk?: (data: any) => void) => {
     },
   })
 }
+
+
+export const useToggleLockUser = (onOk?: (data: any) => void) => {
+  return useBaseMutation({
+    mutationFn: async (body: any) => {
+      return await httpClient.put(ApiEndpoint.TOGGLE_LOCK_USER, {}, {id: body.id})
+    },
+    onSuccess: (data: any) => {
+      onOk && onOk(data)
+      notification.success({
+        placement: 'top',
+        message: 'Successfully',
+      })
+    },
+  })
+}

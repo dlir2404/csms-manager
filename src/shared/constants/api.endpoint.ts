@@ -6,6 +6,7 @@ export enum ApiEndpoint {
   GET_USERS = '/manager/user/all',
   CREATE_USER = '/manager/user',
   EDIT_USER = '/manager/user',
+  TOGGLE_LOCK_USER = '/manager/user/toggle-lock',
 
   //product
   GET_PRODUCTS = '/product/all',

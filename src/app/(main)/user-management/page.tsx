@@ -8,11 +8,13 @@ import React, { useState } from 'react'
 import CreateUserModal from './create-user-modal'
 import EditUserModal from './edit-user-modal'
 import Search from 'antd/es/input/Search'
+import LockModal from './lock-modal'
 
 export default function UserManagement() {
   const [currentPage, setCurrentPage] = useState(1)
   const [createModal, setCreateModal] = useState(false)
   const [editModal, setEditModal] = useState(false)
+  const [lockModal, setLockModal] = useState(false)
   const [choosenUser, setChoosenUser] = useState<IUser | undefined>()
   const [search, setSearch] = useState()
   const [role, setRole] = useState<UserRole | undefined>()
@@ -79,7 +81,13 @@ export default function UserManagement() {
             >
               Edit
             </Button>
-            <Button danger>Delete</Button>
+            <Button
+              danger
+              onClick={() => {
+                setChoosenUser(record)
+                setLockModal(true)
+              }}
+            >{record.isLock ? 'Unlock' : 'Lock'}</Button>
           </div>
         )
       },
@@ -139,6 +147,7 @@ export default function UserManagement() {
       />
       <CreateUserModal isOpen={createModal} setIsOpen={setCreateModal} />
       <EditUserModal isOpen={editModal} setIsOpen={setEditModal} user={choosenUser} />
+      <LockModal isOpen={lockModal} setIsOpen={setLockModal} user={choosenUser} />
     </>
   )
 }

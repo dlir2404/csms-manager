@@ -11,4 +11,5 @@ export interface IUser {
   role: UserRole
   createdAt: string
   updatedAt: string
+  isLock?: boolean
 }
