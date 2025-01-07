@@ -27,6 +27,9 @@ export enum ApiEndpoint {
   GET_ORDERS_MONTHLY_STATISTIC = '/order/statistic/month',
   GET_ORDERS_CREATED_BY_STATISTIC = 'order/statistic/created-by',
   GET_ORDERS_PROCESSED_BY_STATISTIC = 'order/statistic/procecssed-by',
+  GET_ORDERS_STATISTIC_CREATED_BY = 'order/statistic/created-by',
+  GET_ORDERS_STATISTIC_PROCCESS_BY = 'order/statistic/processed-by',
+
 
   //payment
   GET_PAYMENTS = '/api/payment/all',

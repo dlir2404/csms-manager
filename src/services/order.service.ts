@@ -75,3 +75,28 @@ export const useGetOrderProcessedByStatistic = ({ from, to }: { from: string; to
     },
   })
 }
+
+export const useGetOrderStatisticCreatedBy = ({ month, year }: { month: number; year: number }) => {
+  return useQuery({
+    queryKey: [QueryKey.GET_ORDERS_CREATED_BY_STATISTIC, month, year],
+    queryFn: async () => {
+      return await httpClient.get(ApiEndpoint.GET_ORDERS_STATISTIC_CREATED_BY, {
+        month,
+        year,
+      })
+    },
+  })
+}
+
+export const useGetOrderStatisticProcessedBy = ({ month, year }: { month: number; year: number }) => {
+  return useQuery({
+    queryKey: [QueryKey.GET_ORDERS_PROCCESS_BY_STATISTIC, month, year],
+    queryFn: async () => {
+      return await httpClient.get(ApiEndpoint.GET_ORDERS_STATISTIC_PROCCESS_BY, {
+        month,
+        year,
+      })
+    },
+  })
+}
+

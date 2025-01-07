@@ -52,3 +52,11 @@ export interface IOrderOverview {
   processBy: IOrderActionBy[]
   productRatio: IProductRatioOverview[]
 }
+
+export interface IOrderByUsersMonthly {
+
+}
+
+export interface IOrderByUsersDaily {
+  
+}
