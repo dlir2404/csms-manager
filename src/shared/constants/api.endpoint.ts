@@ -29,6 +29,7 @@ export enum ApiEndpoint {
   GET_ORDERS_PROCESSED_BY_STATISTIC = 'order/statistic/procecssed-by',
   GET_ORDERS_STATISTIC_CREATED_BY = 'order/statistic/created-by',
   GET_ORDERS_STATISTIC_PROCCESS_BY = 'order/statistic/processed-by',
+  GET_ORDERS_STATISTIC_BY_PRODUCTS = 'order/statistic/by-product',
 
 
   //payment
