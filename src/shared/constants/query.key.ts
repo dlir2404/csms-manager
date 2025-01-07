@@ -11,6 +11,7 @@ export enum QueryKey {
   GET_ORDERS_MONTHLY_STATISTIC = 'get_orders_monthly_statistic',
   GET_ORDERS_CREATED_BY_STATISTIC = 'get_orders_created_by_statistic',
   GET_ORDERS_PROCESSED_BY_STATISTIC = 'get_orders_processed_by_statistic',
+  GET_QUANTITY_STATISTIC_BY_PRODUCTS = 'GET_QUANTITY_STATISTIC_BY_PRODUCTS',
 
   GET_PAYMENTS = 'get_payments',
   GET_PAYMENTS_OVERVIEW = 'get_payments_overview',

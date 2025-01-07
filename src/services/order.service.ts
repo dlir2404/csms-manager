@@ -112,3 +112,14 @@ export const useGetOrderStatisticByProduct = ({ month, year }: { month: number; 
   })
 }
 
+export const useGetQuantityStatisticByProduct = ({ month, year }: { month: number; year: number }) => {
+  return useQuery({
+    queryKey: [QueryKey.GET_QUANTITY_STATISTIC_BY_PRODUCTS, month, year],
+    queryFn: async () => {
+      return await httpClient.get(ApiEndpoint.GET_QUANTITY_STATISTIC_BY_PRODUCTS, {
+        month,
+        year,
+      })
+    },
+  })
+}
