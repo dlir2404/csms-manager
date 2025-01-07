@@ -7,6 +7,7 @@ import { UserRole } from '@/shared/types/user'
 import { formatDate } from '@/shared/utils/format.date'
 import { formatCurrency } from '@/shared/utils/formatCurrency'
 import { DatePicker, Select, Table, TableProps, Tag } from 'antd'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 const { RangePicker } = DatePicker;
 
@@ -17,6 +18,7 @@ export default function OrderManagement() {
   const [processBy, setProcessBy] = useState<number | undefined>()
   const [from, setFrom] = useState<string | undefined>()
   const [to, setTo] = useState<string | undefined>()
+  const router = useRouter()
   const { data, isLoading } = useGetListOrder({
     page: currentPage,
     pageSize: 10,
@@ -61,9 +63,10 @@ export default function OrderManagement() {
       dataIndex: 'status',
       key: 'status',
       render: (value) => {
-        if (value === OrderStatus.CREATED) return <Tag color="volcano">Waiting for processing</Tag>
+        if (value === OrderStatus.CREATED) return <Tag color="gold">Waiting for processing</Tag>
         if (value === OrderStatus.PROCESSING) return <Tag color="blue">Processing</Tag>
         if (value === OrderStatus.COMPLETED) return <Tag color="green">Completed</Tag>
+        if (value === OrderStatus.CANCELED) return <Tag color="red">Canceled</Tag>
 
         return ''
       },
@@ -171,6 +174,7 @@ export default function OrderManagement() {
         }} />
       </div>
       <Table
+        className='cursor-pointer'
         bordered
         loading={isLoading}
         columns={columns}
@@ -189,6 +193,11 @@ export default function OrderManagement() {
           console.log(pagination)
           setCurrentPage(pagination.current || 1)
         }}
+        onRow={(record) => ({
+          onClick: () => {
+            router.push(`/order-management/order/${record.id}`)
+          }
+        })}
       />
     </div>
   )

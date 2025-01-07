@@ -70,6 +70,18 @@ export const MenuItems: any = [
     key: 4,
     url: '/revenue-management',
     icon: <FundViewOutlined />,
+    children: [
+      {
+        label: 'Overview',
+        key: 40,
+        url: '/overview',
+      },
+      {
+        label: 'All payment',
+        key: 41,
+        url: '/all-payment',
+      },
+    ],
   },
 ]
 

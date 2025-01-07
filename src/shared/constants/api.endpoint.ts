@@ -21,9 +21,13 @@ export enum ApiEndpoint {
 
   //order
   GET_ORDERS = '/order/all',
+  GET_ORDER = '/order',
   GET_ORDERS_OVERVIEW = '/order/overview',
   GET_ORDERS_DAILY_STATISTIC = '/order/statistic/day',
   GET_ORDERS_MONTHLY_STATISTIC = '/order/statistic/month',
   GET_ORDERS_CREATED_BY_STATISTIC = 'order/statistic/created-by',
   GET_ORDERS_PROCESSED_BY_STATISTIC = 'order/statistic/procecssed-by',
+
+  //payment
+  GET_PAYMENTS = '/api/payment/all',
 }
