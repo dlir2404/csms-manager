@@ -106,10 +106,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             />
           </Sider>
           <Layout style={{ marginLeft: 200, padding: '0 24px 24px' }}>
-            <Breadcrumb
-              items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-              style={{ margin: '16px 0' }}
-            />
             <Content
               style={{
                 padding: 24,

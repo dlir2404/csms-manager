@@ -68,7 +68,7 @@ const OrderDailyChart = () => {
       <div className="flex p-4 justify-between items-center">
         <div className="font-bold text-xl">Daily orders</div>
         <div>
-          <DatePicker value={day} onChange={onChange} picker="month" />
+          <DatePicker allowClear={false} value={day} onChange={onChange} picker="month" />
         </div>
       </div>
       {typeof window !== 'undefined' && (

@@ -67,7 +67,7 @@ const PaymentMonthlyChart = () => {
       <div className="flex p-4 justify-between items-center">
         <div className="font-bold text-xl">Monthly revenue</div>
         <div>
-          <DatePicker value={day} onChange={onChange} picker="year" />
+          <DatePicker allowClear={false} value={day} onChange={onChange} picker="year" />
         </div>
       </div>
       {typeof window !== 'undefined' && (

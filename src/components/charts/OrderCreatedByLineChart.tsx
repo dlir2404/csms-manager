@@ -71,7 +71,7 @@ const OrderCreatedByLineChart = () => {
             <div className="flex p-4 justify-between items-center">
                 <div className="font-bold text-xl">Orders created by order taker overtime</div>
                 <div>
-                    <DatePicker value={day} onChange={onChange} picker="month" />
+                    <DatePicker allowClear={false} value={day} onChange={onChange} picker="month" />
                 </div>
             </div>
             <HighchartsReact

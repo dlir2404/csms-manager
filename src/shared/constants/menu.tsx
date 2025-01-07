@@ -1,18 +1,11 @@
 import {
   BookOutlined,
   FundViewOutlined,
-  PieChartOutlined,
   ProductOutlined,
   TeamOutlined,
 } from '@ant-design/icons'
 
 export const MenuItems: any = [
-  {
-    label: 'Overview',
-    key: 0,
-    url: '/',
-    icon: <PieChartOutlined />,
-  },
   {
     label: 'User management',
     key: 1,
