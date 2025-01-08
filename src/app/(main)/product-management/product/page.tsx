@@ -26,10 +26,9 @@ export default function ProductTab() {
     pageSize: 10,
     search: search ? search : '',
     available,
-    category
+    category,
   })
   const { data: categories } = useGetListCategory({})
-
 
   const columns: TableProps<IProduct>['columns'] = [
     {
@@ -122,11 +121,11 @@ export default function ProductTab() {
 
   return (
     <>
-      <div className='flex justify-between'>
+      <div className="flex justify-between">
         <Button className="mb-4" type="primary" onClick={() => setCreateModal(true)}>
           Add Product
         </Button>
-        <div className='flex gap-4'>
+        <div className="flex gap-4">
           <Select
             placeholder="Category"
             allowClear
@@ -135,7 +134,7 @@ export default function ProductTab() {
             options={categories?.rows?.map((category: any) => {
               return {
                 label: category.name,
-                value: category.id
+                value: category.id,
               }
             })}
           />
@@ -146,16 +145,22 @@ export default function ProductTab() {
             onChange={onStatusChange}
             options={[
               {
-                label: "Available",
+                label: 'Available',
                 value: true,
               },
               {
-                label: "Unavailable",
-                value: false
-              }
+                label: 'Unavailable',
+                value: false,
+              },
             ]}
           />
-          <Search placeholder="input search text" allowClear onSearch={onSearch} style={{ width: 400 }} loading={isLoading} />
+          <Search
+            placeholder="input search text"
+            allowClear
+            onSearch={onSearch}
+            style={{ width: 400 }}
+            loading={isLoading}
+          />
         </div>
       </div>
       <Table

@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 export default function CreateCategoryModal({
   isOpen,
   setIsOpen,
-  onOK
+  onOK,
 }: {
   isOpen: boolean
   onOK: () => void

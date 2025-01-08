@@ -5,7 +5,7 @@ export enum OrderStatus {
   CREATED = 'created',
   PROCESSING = 'processing',
   COMPLETED = 'completed',
-  CANCELED = 'canceled'
+  CANCELED = 'canceled',
 }
 
 export interface IOder {
@@ -53,10 +53,6 @@ export interface IOrderOverview {
   productRatio: IProductRatioOverview[]
 }
 
-export interface IOrderByUsersMonthly {
+export interface IOrderByUsersMonthly {}
 
-}
-
-export interface IOrderByUsersDaily {
-  
-}
+export interface IOrderByUsersDaily {}

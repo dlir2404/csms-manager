@@ -31,13 +31,13 @@ export default function LockModal({
 
   return (
     <Modal
-      title={user?.isLock ? "Unlock" : "Lock"}
+      title={user?.isLock ? 'Unlock' : 'Lock'}
       open={isOpen}
       onOk={handleOK}
       onCancel={() => setIsOpen(false)}
       confirmLoading={isLoading}
     >
-      <p>{user?.isLock ? "Unlock this user?" : "Lock this user?"}</p>
+      <p>{user?.isLock ? 'Unlock this user?' : 'Lock this user?'}</p>
     </Modal>
   )
 }

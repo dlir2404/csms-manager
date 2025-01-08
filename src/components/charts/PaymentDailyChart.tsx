@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import Highcharts, { Options } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { useGetOrderDailyStatistic } from '@/services/order.service'
 import { DatePicker } from 'antd'
 import dayjs from 'dayjs'
 import { useGetPaymentDailyStatistic } from '@/services/payment.service'

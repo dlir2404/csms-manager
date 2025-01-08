@@ -23,7 +23,7 @@ export default function UserManagement() {
     page: currentPage,
     pageSize: 10,
     search: search || '',
-    role
+    role,
   })
 
   const columns: TableProps<IUser>['columns'] = [
@@ -87,7 +87,9 @@ export default function UserManagement() {
                 setChoosenUser(record)
                 setLockModal(true)
               }}
-            >{record.isLock ? 'Unlock' : 'Lock'}</Button>
+            >
+              {record.isLock ? 'Unlock' : 'Lock'}
+            </Button>
           </div>
         )
       },
@@ -104,13 +106,13 @@ export default function UserManagement() {
 
   return (
     <>
-      <div className='flex justify-between'>
+      <div className="flex justify-between">
         <Button className="mb-4 mr-4" type="primary" onClick={() => setCreateModal(true)}>
           Create User
         </Button>
         <div>
           <Select
-            className='mr-4'
+            className="mr-4"
             placeholder="Role"
             allowClear
             style={{ width: 200 }}
@@ -118,11 +120,17 @@ export default function UserManagement() {
             options={Object.entries(UserRole).map(([key, value]) => {
               return {
                 label: key,
-                value: value
+                value: value,
               }
             })}
           />
-          <Search placeholder="input search text" allowClear onSearch={onSearch} style={{ width: 600 }} loading={isLoading} />
+          <Search
+            placeholder="input search text"
+            allowClear
+            onSearch={onSearch}
+            style={{ width: 600 }}
+            loading={isLoading}
+          />
         </div>
       </div>
       <Table

@@ -33,7 +33,6 @@ export enum ApiEndpoint {
   GET_ORDERS_STATISTIC_BY_PRODUCTS = 'order/statistic/by-product',
   GET_QUANTITY_STATISTIC_BY_PRODUCTS = 'order/statistic/quantity/by-product',
 
-
   //payment
   GET_PAYMENTS = '/api/payment/all',
   GET_PAYMENTS_OVERVIEW = '/api/payment/overview',

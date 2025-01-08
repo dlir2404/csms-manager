@@ -8,7 +8,7 @@ import { EyeOutlined, SettingOutlined } from '@ant-design/icons'
 import { Button, DatePicker, Select, Table, TableProps, Tag } from 'antd'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 export default function AllPayment() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -22,7 +22,7 @@ export default function AllPayment() {
     status,
     method,
     from,
-    to
+    to,
   })
 
   const router = useRouter()
@@ -91,9 +91,15 @@ export default function AllPayment() {
       dataIndex: 'updatedAt',
       key: 'action',
       render: (_, record) => {
-        return <Button onClick={() => router.push(`/order-management/order/${record.orderId}`)} type="primary" icon={<EyeOutlined />}>
-          View order
-        </Button>
+        return (
+          <Button
+            onClick={() => router.push(`/order-management/order/${record.orderId}`)}
+            type="primary"
+            icon={<EyeOutlined />}
+          >
+            View order
+          </Button>
+        )
       },
     },
   ]
@@ -108,7 +114,7 @@ export default function AllPayment() {
 
   return (
     <div>
-      <div className='flex gap-4 mb-4'>
+      <div className="flex gap-4 mb-4">
         <Select
           placeholder="Status"
           allowClear
@@ -117,7 +123,7 @@ export default function AllPayment() {
           options={Object.entries(PaymentStatus).map(([key, value]) => {
             return {
               label: key,
-              value: value
+              value: value,
             }
           })}
         />
@@ -129,16 +135,18 @@ export default function AllPayment() {
           options={Object.entries(PaymentMethod).map(([key, value]) => {
             return {
               label: key,
-              value: value
+              value: value,
             }
           })}
         />
-        <RangePicker onChange={(e) => {
-          if (e) {
-            setFrom(e[0]?.toISOString())
-            setTo(e[1]?.toISOString())
-          }
-        }} />
+        <RangePicker
+          onChange={(e) => {
+            if (e) {
+              setFrom(e[0]?.toISOString())
+              setTo(e[1]?.toISOString())
+            }
+          }}
+        />
       </div>
       <Table
         bordered

@@ -1,9 +1,4 @@
-import {
-  BookOutlined,
-  FundViewOutlined,
-  ProductOutlined,
-  TeamOutlined,
-} from '@ant-design/icons'
+import { BookOutlined, FundViewOutlined, ProductOutlined, TeamOutlined } from '@ant-design/icons'
 
 export const MenuItems: any = [
   {

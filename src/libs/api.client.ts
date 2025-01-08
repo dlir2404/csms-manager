@@ -17,7 +17,8 @@ class HttpClient {
       .map(([key, value]) => {
         if (value === null || value === undefined || value === '') return null
         else return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-      }).filter(e => e != null)
+      })
+      .filter((e) => e != null)
       .join('&')
 
     return `${url}?${queryString}`

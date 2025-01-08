@@ -5,11 +5,29 @@ import { useBaseMutation } from '@/shared/hooks/mutation'
 import { useQuery } from '@tanstack/react-query'
 import { notification } from 'antd'
 
-export const useGetListProduct = ({ page, pageSize, search, available, category }: { page: number; pageSize: number, search: string, available?: boolean, category?: number }) => {
+export const useGetListProduct = ({
+  page,
+  pageSize,
+  search,
+  available,
+  category,
+}: {
+  page: number
+  pageSize: number
+  search: string
+  available?: boolean
+  category?: number
+}) => {
   return useQuery({
     queryKey: [QueryKey.GET_PRODUCTS, page, pageSize, search, available, category, search],
     queryFn: async () => {
-      return await httpClient.get(ApiEndpoint.GET_PRODUCTS, { page, pageSize, search, available, category })
+      return await httpClient.get(ApiEndpoint.GET_PRODUCTS, {
+        page,
+        pageSize,
+        search,
+        available,
+        category,
+      })
     },
   })
 }

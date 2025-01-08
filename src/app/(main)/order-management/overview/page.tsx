@@ -11,7 +11,7 @@ import { Col, Row } from 'antd'
 import React from 'react'
 
 export default function Overview() {
-  const { data } = useGetOrderOverview();
+  const { data } = useGetOrderOverview()
 
   return (
     <div>

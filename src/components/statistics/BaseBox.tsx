@@ -8,7 +8,7 @@ export default function BaseBox({
   number,
   compareTo,
   showCompare,
-  showCurrency
+  showCurrency,
 }: {
   title: string
   number: number
@@ -58,7 +58,9 @@ export default function BaseBox({
     <div className=" py-4 px-6 bg-white rounded-md flex-1 shadow-md">
       <div className="text-xl mb-4 border-b">{title}</div>
       <div className="flex items-center justify-between">
-        <div className="font-bold text-2xl">{showCurrency ? formatCurrency(number) + " VND" : number}</div>
+        <div className="font-bold text-2xl">
+          {showCurrency ? formatCurrency(number) + ' VND' : number}
+        </div>
         {showCompare && compare()}
       </div>
     </div>

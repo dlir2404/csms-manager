@@ -14,21 +14,47 @@ export const useGetOrderOverview = () => {
   })
 }
 
-export const useGetListOrder = ({ page, pageSize, status, createdBy, processBy, from, to }: { page?: number; pageSize?: number, status?: OrderStatus, createdBy?: number, processBy?: number, from?: string, to?: string }) => {
+export const useGetListOrder = ({
+  page,
+  pageSize,
+  status,
+  createdBy,
+  processBy,
+  from,
+  to,
+}: {
+  page?: number
+  pageSize?: number
+  status?: OrderStatus
+  createdBy?: number
+  processBy?: number
+  from?: string
+  to?: string
+}) => {
   return useQuery({
     queryKey: [QueryKey.GET_ORDERS, page, pageSize, status, createdBy, processBy, from, to],
     queryFn: async () => {
-      return await httpClient.get(ApiEndpoint.GET_ORDERS, { page, pageSize, status, createdBy, processBy, from, to, orderBy: 'id', order: TABLE_SORT.DESC })
+      return await httpClient.get(ApiEndpoint.GET_ORDERS, {
+        page,
+        pageSize,
+        status,
+        createdBy,
+        processBy,
+        from,
+        to,
+        orderBy: 'id',
+        order: TABLE_SORT.DESC,
+      })
     },
   })
 }
 
 export const useGetOrder = (id: number) => {
   return useQuery({
-      queryKey: [QueryKey.GET_ORDER],
-      queryFn: async () => {
-          return await httpClient.get(ApiEndpoint.GET_ORDER + `/${id}`)
-      }
+    queryKey: [QueryKey.GET_ORDER],
+    queryFn: async () => {
+      return await httpClient.get(ApiEndpoint.GET_ORDER + `/${id}`)
+    },
   })
 }
 
@@ -88,7 +114,13 @@ export const useGetOrderStatisticCreatedBy = ({ month, year }: { month: number; 
   })
 }
 
-export const useGetOrderStatisticProcessedBy = ({ month, year }: { month: number; year: number }) => {
+export const useGetOrderStatisticProcessedBy = ({
+  month,
+  year,
+}: {
+  month: number
+  year: number
+}) => {
   return useQuery({
     queryKey: [QueryKey.GET_ORDERS_PROCCESS_BY_STATISTIC, month, year],
     queryFn: async () => {
@@ -112,7 +144,13 @@ export const useGetOrderStatisticByProduct = ({ month, year }: { month: number; 
   })
 }
 
-export const useGetQuantityStatisticByProduct = ({ month, year }: { month: number; year: number }) => {
+export const useGetQuantityStatisticByProduct = ({
+  month,
+  year,
+}: {
+  month: number
+  year: number
+}) => {
   return useQuery({
     queryKey: [QueryKey.GET_QUANTITY_STATISTIC_BY_PRODUCTS, month, year],
     queryFn: async () => {

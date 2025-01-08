@@ -4,7 +4,6 @@ import OrderProcessedByLineChart from '@/components/charts/OrderProcessedByLineC
 import React from 'react'
 
 export default function OrderByUser() {
-
   return (
     <div className="">
       <OrderCreatedByLineChart />

@@ -9,7 +9,7 @@ import { formatCurrency } from '@/shared/utils/formatCurrency'
 import { DatePicker, Select, Table, TableProps, Tag } from 'antd'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 export default function OrderManagement() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,19 +26,19 @@ export default function OrderManagement() {
     createdBy,
     processBy,
     from,
-    to
+    to,
   })
 
   const { data: orderTakers, isLoading: orderTakerLoading } = useGetListUser({
     page: 1,
     pageSize: 1000,
-    role: UserRole.ORDER_TAKER
+    role: UserRole.ORDER_TAKER,
   })
 
   const { data: baristas, isLoading: baristaLoading } = useGetListUser({
     page: 1,
     pageSize: 1000,
-    role: UserRole.BARISTA
+    role: UserRole.BARISTA,
   })
 
   const columns: TableProps<IOder>['columns'] = [
@@ -127,7 +127,7 @@ export default function OrderManagement() {
 
   return (
     <div>
-      <div className='flex gap-4 mb-4'>
+      <div className="flex gap-4 mb-4">
         <Select
           placeholder="Status"
           allowClear
@@ -136,7 +136,7 @@ export default function OrderManagement() {
           options={Object.entries(OrderStatus).map(([key, value]) => {
             return {
               label: key,
-              value: value
+              value: value,
             }
           })}
         />
@@ -149,7 +149,7 @@ export default function OrderManagement() {
           options={orderTakers?.rows?.map((e: any) => {
             return {
               label: e.fullName || e.username,
-              value: e.id
+              value: e.id,
             }
           })}
         />
@@ -162,19 +162,21 @@ export default function OrderManagement() {
           options={baristas?.rows?.map((e: any) => {
             return {
               label: e.fullName || e.username,
-              value: e.id
+              value: e.id,
             }
           })}
         />
-        <RangePicker onChange={(e) => {
-          if (e) {
-            setFrom(e[0]?.toISOString())
-            setTo(e[1]?.toISOString())
-          }
-        }} />
+        <RangePicker
+          onChange={(e) => {
+            if (e) {
+              setFrom(e[0]?.toISOString())
+              setTo(e[1]?.toISOString())
+            }
+          }}
+        />
       </div>
       <Table
-        className='cursor-pointer'
+        className="cursor-pointer"
         bordered
         loading={isLoading}
         columns={columns}
@@ -196,7 +198,7 @@ export default function OrderManagement() {
         onRow={(record) => ({
           onClick: () => {
             router.push(`/order-management/order/${record.id}`)
-          }
+          },
         })}
       />
     </div>

@@ -6,7 +6,17 @@ import { UserRole } from '@/shared/types/user'
 import { useQuery } from '@tanstack/react-query'
 import { notification } from 'antd'
 
-export const useGetListUser = ({ page, pageSize, search, role }: { page: number; pageSize: number, search?: string, role?: UserRole }) => {
+export const useGetListUser = ({
+  page,
+  pageSize,
+  search,
+  role,
+}: {
+  page: number
+  pageSize: number
+  search?: string
+  role?: UserRole
+}) => {
   return useQuery({
     queryKey: [QueryKey.GET_USERS, page, pageSize, search, role],
     queryFn: async () => {
@@ -45,11 +55,10 @@ export const useEditUser = (onOk?: (data: any) => void) => {
   })
 }
 
-
 export const useToggleLockUser = (onOk?: (data: any) => void) => {
   return useBaseMutation({
     mutationFn: async (body: any) => {
-      return await httpClient.put(ApiEndpoint.TOGGLE_LOCK_USER, {}, {id: body.id})
+      return await httpClient.put(ApiEndpoint.TOGGLE_LOCK_USER, {}, { id: body.id })
     },
     onSuccess: (data: any) => {
       onOk && onOk(data)

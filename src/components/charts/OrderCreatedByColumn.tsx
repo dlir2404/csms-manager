@@ -21,7 +21,7 @@ const OrderCreatedByColumn = ({ data }: { data: IOrderActionBy[] | undefined }) 
       text: '',
     },
     xAxis: {
-      categories: data?.map((e) => e.fullName ? e.fullName : e.username),
+      categories: data?.map((e) => (e.fullName ? e.fullName : e.username)),
       crosshair: true,
     },
     yAxis: [
